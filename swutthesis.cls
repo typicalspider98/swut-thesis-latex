@@ -124,7 +124,7 @@
 % The two supplied Founder fonts are loaded from the project without requiring
 % installation. ASCII aliases avoid non-ASCII path issues in XeTeX on Windows.
 \IfFileExists{fonts/FZXBS.ttf}
-  {\newCJKfontfamily\swutschoolfont[Path={fonts/}]{FZXBS.ttf}}
+  {\newCJKfontfamily\swutschoolfont[Path={fonts/},Scale=1]{FZXBS.ttf}}
   {\newcommand{\swutschoolfont}{\songti}}
 \IfFileExists{fonts/FZCHSJ.ttf}
   {\newCJKfontfamily\swutcoverfont[Path={fonts/}]{FZCHSJ.ttf}}
@@ -192,6 +192,12 @@
 % ----------------------------------------------------------------------------
 % 5. Cover and declaration pages
 % ----------------------------------------------------------------------------
+% In Word, 2 pt character spacing is present at both the paragraph and run
+% levels, so the fixed cover heading has an effective 4 pt gap between glyphs.
+\newcommand{\swut@coverheading}{%
+  毕\kern4bp 业\kern4bp 设\kern4bp 计\kern4bp
+  （\kern4bp 论\kern4bp 文\kern4bp ）}
+
 % #1 label, #2 value, #3 text vertical coordinate, #4 underline coordinate.
 \newcommand{\swut@coverrow}[4]{%
   \node[anchor=north west,inner sep=0pt]
@@ -211,16 +217,20 @@
     \thispagestyle{empty}
     \begin{tikzpicture}[remember picture,overlay]
       % The group is exported unchanged from Word's two-picture Group 13.
-      % Word size: 397.95 pt × 83.45 pt; position: x=106.15 pt, y=107.10 pt.
+      % Its rendered Word bounds are 397.95 pt × 83.45 pt at
+      % x=105.75 pt, y=94.92 pt.
       \node[anchor=north west,inner sep=0pt]
-        at ([xshift=106.15bp,yshift=-107.10bp]current page.north west)
+        at ([xshift=105.75bp,yshift=-94.72bp]current page.north west)
         {\includegraphics[width=397.95bp,height=83.45bp]
           {assets/swut-wordmark.png}};
 
+      % Word contains three leading spaces before this heading.  The 30 pt
+      % horizontal shift reproduces its rendered position without preserving
+      % those invisible placeholder characters.
       \node[anchor=north,inner sep=0pt]
-        at ([yshift=-202.50bp]current page.north)
+        at ([xshift=30bp,yshift=-211.00bp]current page.north)
         {{\swutschoolfont\fontsize{36bp}{43.2bp}\selectfont
-          毕业设计（论文）}};
+          \swut@coverheading}};
 
       \node[anchor=north west,inner sep=0pt]
         at ([xshift=76.50bp,yshift=-337.00bp]current page.north west)
