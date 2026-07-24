@@ -18,6 +18,7 @@ chapters/*.aux
 ~$*
 .codex_tmp/
 tmp/
+dist/
 xelatex*.fls
 
 # 字体文件的公开再分发授权尚未确认，不提交到公共仓库
