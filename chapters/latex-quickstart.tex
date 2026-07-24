@@ -1,0 +1,151 @@
+% 第二章：面向第一次接触 LaTeX 的学生，只介绍完成论文所需的核心语法。
+\chapter{LaTeX 快速入门}
+
+\section{源文件、命令和环境}
+
+LaTeX 源文件是带有命令的纯文本文件。普通文字会直接进入论文；以
+反斜线开头的内容通常是命令，花括号中是命令的参数。例如，
+\verb|\section{研究方法}| 表示建立一个题为“研究方法”的二级标题。
+
+较长的功能通常使用环境表示，并由名称相同的
+\verb|\begin{...}| 和 \verb|\end{...}| 包围。开始与结束命令必须
+成对出现。学生一般只需修改 \texttt{main.tex}、\texttt{chapters/}
+中的章节文件和 \texttt{references.bib}，不需要修改文档类文件。
+
+\begin{verbatim}
+\chapter{实验与分析}
+\section{实验方案}
+\subsection{数据采集}
+
+这里填写正文内容。
+\end{verbatim}
+
+\section{使用章节命令组织论文}
+
+本模板使用章节命令建立标题层级，下面的四行代码依次表示章、节、
+小节和四级标题。模板会根据命令所在层级自动生成标题编号、目录条目
+和 PDF 书签，因此不要在标题文字中手工输入“第一章”或“1.1”等编号。
+
+\begin{verbatim}
+\chapter{研究方法}
+\section{总体方案}
+\subsection{数据来源}
+\subsubsection{样本筛选}
+\end{verbatim}
+
+如果调整了章节顺序，只需移动相应命令或章节文件，编号和目录会在
+重新编译后自动更新。
+
+\section{自然段、换行和注释}
+
+源文件中的一次普通换行会被当作一个空格处理。开始新段落时，应在
+两段文字之间保留一个空行，也可以使用 \verb|\par|。这种写法能让
+模板自动应用首行缩进和段落间距。
+
+\begin{verbatim}
+这是第一个自然段。源文件可以在合适的位置换行，
+但 PDF 会根据版心宽度自动重新断行。
+
+这是第二个自然段。两段之间有一个空行。
+\end{verbatim}
+
+\verb|\\| 表示强制换行，但仍属于同一个段落，通常只用于表格单元格、
+诗歌或确有固定换行要求的位置。普通正文不要使用多个 \verb|\\| 制造
+段落或空白距离，也不要用连续空格调整位置。
+
+百分号 \verb|%| 后面的内容是源文件注释，不会出现在 PDF 中。若要
+在正文中显示某些特殊字符，需要在前面加反斜线，例如
+\verb|\%|、\verb|\_|、\verb|\&| 和 \verb|\#|。
+
+\section{强调、列表和脚注}
+
+需要语义强调时可使用 \verb|\emph{重点内容}|；有明确顺序的项目使用
+\texttt{enumerate}，没有顺序的项目使用 \texttt{itemize}。每个项目
+由 \verb|\item| 开始，编号或项目符号由模板自动生成。
+
+\begin{verbatim}
+\begin{enumerate}
+  \item 收集研究数据；
+  \item 建立分析模型；
+  \item 解释实验结果。
+\end{enumerate}
+\end{verbatim}
+
+补充说明可使用 \verb|\footnote{脚注内容}|。脚注编号、位置和样式由
+模板统一处理，正文中不需要手工输入脚注序号。
+
+\section{数学公式}
+
+段落中的简短公式使用 \verb|\(...\)|，例如质能关系
+\(E=mc^2\)。需要独立编号的公式使用 \texttt{equation} 环境，并通过
+\verb|\label| 设置标识。正文使用 \verb|\eqref| 引用公式编号。
+
+\begin{verbatim}
+\begin{equation}
+  S_n = \sum_{i=1}^{n} x_i
+  \label{eq:quickstart-sum}
+\end{equation}
+
+由式~\eqref{eq:quickstart-sum} 可得样本总和。
+\end{verbatim}
+
+上述代码生成的公式为
+\begin{equation}
+  S_n = \sum_{i=1}^{n} x_i .
+  \label{eq:quickstart-sum}
+\end{equation}
+由式~\eqref{eq:quickstart-sum} 可引用其自动编号。
+
+\section{图片、表格和交叉引用}
+
+图片文件通常放在 \texttt{assets/} 目录中，并使用 \texttt{figure}
+环境插入。\verb|\caption| 生成图题和编号，\verb|\label| 应写在
+\verb|\caption| 后面。表格采用相同的标识和引用方法。
+
+\begin{verbatim}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.7\textwidth]{assets/example.png}
+  \caption{图片标题}
+  \label{fig:example}
+\end{figure}
+
+如图~\ref{fig:example} 所示，……
+\end{verbatim}
+
+标识名称只在源文件中使用，建议采用统一前缀，例如章节使用
+\texttt{sec:}、公式使用 \texttt{eq:}、图片使用 \texttt{fig:}、
+表格使用 \texttt{tab:}。本示例后文的图~\ref{fig:distribution} 和
+表~\ref{tab:gear} 都通过这种方式引用，内容移动后编号仍会自动更新。
+
+\section{参考文献与编译}
+
+参考文献数据保存在 \texttt{references.bib} 中，每条记录都有唯一的
+引用键。正文使用 \verb|\cite{引用键}| 插入引用，例如
+\verb|\cite{ctex2022manual}| 会生成文献引用\cite{ctex2022manual}。
+参考文献列表由模板自动汇总和排版。
+
+在项目根目录运行以下命令即可编译：
+
+\begin{verbatim}
+latexmk main.tex
+\end{verbatim}
+
+\texttt{latexmk} 会自动调用 XeLaTeX 和 Biber，并完成目录、公式编号、
+交叉引用和参考文献所需的多轮编译。如果 PDF 中出现“??”，应先检查
+\verb|\label| 名称是否一致，再重新完整编译。
+
+\section{常见错误和建议}
+
+\begin{enumerate}
+  \item 命令参数的花括号、环境的开始与结束必须成对出现；
+  \item 不要手工输入章节、图表、公式、脚注和参考文献编号；
+  \item 不要用连续空格、空行或强制换行调整版面；
+  \item 图片路径和文献引用键应与文件中的名称完全一致；
+  \item 遇到错误时，先查看日志中最早出现的报错位置。
+\end{enumerate}
+
+更多基础资料可查阅 LaTeX 项目文档
+\url{https://www.latex-project.org/help/documentation/}，以及 Overleaf
+的入门教程
+\url{https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes}。

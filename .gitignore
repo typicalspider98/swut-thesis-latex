@@ -1,0 +1,27 @@
+*.aux
+*.bcf
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+*.xdv
+chapters/*.aux
+
+# 编辑器、Office 和本地检查产生的临时文件
+~$*
+.codex_tmp/
+tmp/
+xelatex*.fls
+
+# 字体文件的公开再分发授权尚未确认，不提交到公共仓库
+字体包可安装/
+fonts/*.ttf
+fonts/*.otf
+!fonts/README.md
