@@ -91,6 +91,11 @@
   {\setmonofont{TeX Gyre Cursor}}
 
 % Chinese fonts: Windows -> macOS -> TeX Live fallback.
+% CTeX has already installed platform defaults.  Replacing the main and sans
+% defaults here is intentional, so suppress only its known redefinition notice.
+\ExplSyntaxOn
+\msg_redirect_name:nnn { xeCJK } { CJKfamily-redef } { none }
+\ExplSyntaxOff
 \IfFontExistsTF{SimSun}
   {\setCJKmainfont[AutoFakeBold=2.5]{SimSun}}
   {
@@ -105,6 +110,9 @@
       {\setCJKsansfont[AutoFakeBold=2.5]{STHeiti}}
       {\setCJKsansfont[AutoFakeBold=2.5]{FandolHei-Regular}}
   }
+\ExplSyntaxOn
+\msg_redirect_name:nnn { xeCJK } { CJKfamily-redef } { warning }
+\ExplSyntaxOff
 % The two supplied Founder fonts are loaded from the project without requiring
 % installation. ASCII aliases avoid non-ASCII path issues in XeTeX on Windows.
 \IfFileExists{fonts/FZXBS.ttf}
