@@ -30,7 +30,10 @@
   bindingoffset=0.5cm,
   headheight=15pt,
   headsep=0.35cm,
-  footskip=1.5cm
+  % Word's 1.5 cm footer setting measures from the paper edge to the footer
+  % baseline.  With a 2 cm LaTeX bottom margin, the equivalent footskip is
+  % about 0.44 cm (text-area bottom to footer baseline).
+  footskip=0.44cm
 }
 
 % Fonts and graphics
@@ -89,6 +92,11 @@
 \IfFontExistsTF{Courier New}
   {\setmonofont{Courier New}}
   {\setmonofont{TeX Gyre Cursor}}
+% Word uses an unscaled 10.5 pt Times New Roman page number.  Keep this family
+% separate because the document's Western fonts use MatchLowercase scaling.
+\IfFontExistsTF{Times New Roman}
+  {\newfontfamily\swutpagefont[Scale=1]{Times New Roman}}
+  {\newfontfamily\swutpagefont[Scale=1]{TeX Gyre Termes}}
 
 % Chinese fonts: Windows -> macOS -> TeX Live fallback.
 % CTeX has already installed platform defaults.  Replacing the main and sans
@@ -339,16 +347,19 @@
 % ----------------------------------------------------------------------------
 % Front matter has page numbers only; main/back matter also show the thesis
 % title in the running header.
+\newcommand{\swut@pagenumber}{%
+  \swutpagefont\fontsize{10.5bp}{10.5bp}\selectfont\thepage}
+
 \fancypagestyle{swut-front}{%
   \fancyhf{}
   \renewcommand{\headrulewidth}{0pt}
-  \fancyfoot[C]{\rmfamily\zihao{5}\thepage}
+  \fancyfoot[C]{\swut@pagenumber}
 }
 
 \fancypagestyle{swut-main}{%
   \fancyhf{}
   \fancyhead[C]{\songti\rmfamily\zihao{5}\swut@title}
-  \fancyfoot[C]{\rmfamily\zihao{5}\thepage}
+  \fancyfoot[C]{\swut@pagenumber}
   \renewcommand{\headrulewidth}{0.4pt}
 }
 
@@ -357,7 +368,7 @@
   \fancypagestyle{plain}{%
     \fancyhf{}
     \renewcommand{\headrulewidth}{0pt}
-    \fancyfoot[C]{\rmfamily\zihao{5}\thepage}
+    \fancyfoot[C]{\swut@pagenumber}
   }%
 }
 
@@ -365,7 +376,7 @@
   \fancypagestyle{plain}{%
     \fancyhf{}
     \fancyhead[C]{\songti\rmfamily\zihao{5}\swut@title}
-    \fancyfoot[C]{\rmfamily\zihao{5}\thepage}
+    \fancyfoot[C]{\swut@pagenumber}
     \renewcommand{\headrulewidth}{0.4pt}
   }%
 }
