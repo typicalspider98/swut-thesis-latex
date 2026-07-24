@@ -72,6 +72,30 @@ xelatex main.tex
 
 生成文件为 `main.pdf`。
 
+## 字体获取与本地使用
+
+公开发行包不直接附带第三方字体文件。需要完整复现学校 Word 模板时，
+请从字体厂商官方渠道取得字体，并将文件放入项目的 `fonts/` 目录。
+
+- [方正公文写作个人（家庭）版](https://shop.foundertype.com/index.php/AuthOffice/index.html)
+  包含方正小标宋简体、黑体、仿宋_GB2312 和楷体_GB2312，适用于个人
+  非商业的文档编辑、显示和打印。
+- [方正小标宋官方字体页面](https://www.foundertype.com/index.php/FontInfo/index/id/164)
+  提供字体介绍、个人非商业授权说明和官方获取入口。
+- [方正粗黑宋官方字体页面](https://www.foundertype.com/index.php/FontInfo/index/id/195)
+  提供方正粗黑宋简体的授权与官方获取入口。
+
+取得字体后，按照 [`fonts/README.md`](fonts/README.md) 中的文件名放置。
+本地编译时模板会自动读取排版所需的本地字体。Overleaf 或中国科技云
+平台用户可将依法取得的字体上传到自己的私人项目 `fonts/` 目录；
+不要将字体文件提交到公开仓库或可公开访问的在线项目。
+
+Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
+[FangSong](https://learn.microsoft.com/en-ie/typography/font-list/fangsong)
+和 [KaiTi](https://learn.microsoft.com/en-us/typography/font-list/kaiti)
+页面。系统字体与旧版 `_GB2312` 文件并非同一个字体文件，模板会根据
+实际可用字体自动选择或回退。
+
 ## 已实现的版式与功能
 
 - 中文正文优先使用宋体，标题优先使用黑体。
@@ -100,7 +124,7 @@ xelatex main.tex
   Fandol 和 TeX Gyre 字体，保证可以编译；正式提交前仍应在学校指定
   字体环境中核对版式。
 - 公开仓库暂不附带第三方字体文件；确认再分发授权后方可加入发布包。
-  字体可以安装到系统，也可以按照 `fonts/README.md` 的说明放入项目。
+  字体可从上述官方渠道取得，并按照 `fonts/README.md` 放入本地项目。
 
 ## 使用提示
 

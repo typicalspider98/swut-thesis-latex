@@ -1,15 +1,32 @@
-# 可选字体目录
+# 本地字体目录
 
-本目录用于放置学校已取得合法使用和再分发授权的字体文件。公开仓库
-暂不附带第三方字体文件。
+本目录用于放置使用者从官方渠道合法取得的字体文件。`.gitignore`
+会排除本目录中的 TTF 和 OTF 文件，防止本地字体被误提交到公开仓库。
 
-如需完全复现学校 Word 模板中的封面字体，可将相应字体以如下文件名
-放入本目录：
+## 官方获取渠道
+
+- [方正公文写作个人（家庭）版](https://shop.foundertype.com/index.php/AuthOffice/index.html)：
+  包含方正小标宋简体、黑体、仿宋_GB2312 和楷体_GB2312。
+- [方正小标宋](https://www.foundertype.com/index.php/FontInfo/index/id/164)：
+  方正小标宋官方产品与授权页面。
+- [方正粗黑宋](https://www.foundertype.com/index.php/FontInfo/index/id/195)：
+  方正粗黑宋官方产品与授权页面。
+
+## 文件放置
+
+取得字体后，将相应文件放入本目录，并使用以下文件名：
 
 ```text
-FZXBS.ttf
-FZCHSJ.ttf
+fonts/
+├─ FZXBS.ttf
+├─ FZCHSJ.ttf
+├─ FangSongGB2312.ttf
+└─ KaiTiGB2312.ttf
 ```
 
-未提供上述文件时，模板会自动使用系统字体或 TeX Live 自带字体，
-不影响正常编译。正式提交论文前，请在学校指定的字体环境中核对版式。
+其中 `FZXBS.ttf` 对应方正小标宋简体，`FZCHSJ.ttf` 对应方正粗黑宋
+简体。后两个文件分别对应仿宋_GB2312 和楷体_GB2312。
+
+模板缺少这些文件时仍可使用系统字体或 TeX Live 自带字体完成编译。
+如需在 Overleaf 或中国科技云平台复现本地字体效果，可将依法取得的
+字体上传到自己的私人项目 `fonts/` 目录。
