@@ -1,153 +1,148 @@
-% 第二章：完成论文写作所需的 LaTeX 核心语法。
-\chapter{LaTeX 快速入门}
+% 第二章：按照本模板的实际使用顺序介绍常用操作。
+\chapter{模板快速上手}
 
-\section{源文件、命令和环境}
+\section{从哪里开始修改}
 
-LaTeX 源文件是带有命令的纯文本文件。普通文字会直接进入论文；以
-反斜线开头的内容通常是命令，花括号中是命令的参数。例如，
-\verb|\section{研究方法}| 表示建立一个题为“研究方法”的二级标题。
-
-较长的功能通常使用环境表示，并由名称相同的
-\verb|\begin{...}| 和 \verb|\end{...}| 包围。开始与结束命令必须
-成对出现。论文内容主要在 \texttt{main.tex}、\texttt{chapters/}
-中的章节文件和 \texttt{references.bib} 中编辑；文档类文件负责实现
-统一版式，常规写作过程中无须修改。
-
-% 所有示例统一使用模板定义的代码块样式。
-\begin{lstlisting}[language={[LaTeX]TeX}]
-\chapter{实验与分析}
-\section{实验方案}
-\subsection{数据采集}
-
-这里填写正文内容。
-\end{lstlisting}
-
-\section{使用章节命令组织论文}
-
-本模板使用章节命令建立标题层级，下面的四行代码依次表示章、节、
-小节和四级标题。模板会根据命令所在层级自动生成标题编号、目录条目
-和 PDF 书签，标题文字中无须手工输入“第一章”或“1.1”等编号。
-
-\begin{lstlisting}[language={[LaTeX]TeX}]
-\chapter{研究方法}
-\section{总体方案}
-\subsection{数据来源}
-\subsubsection{样本筛选}
-\end{lstlisting}
-
-调整章节顺序时，可移动相应命令或章节文件，编号和目录会在
-重新编译后自动更新。
-
-\section{自然段、换行和注释}
-
-源文件中的一次普通换行会被当作一个空格处理。开始新段落时，应在
-两段文字之间保留一个空行，也可以使用 \verb|\par|。这种写法能让
-模板自动应用首行缩进和段落间距。
-
-\begin{lstlisting}[language={[LaTeX]TeX}]
-这是第一个自然段。源文件可以在合适的位置换行，
-但 PDF 会根据版心宽度自动重新断行。
-
-这是第二个自然段。两段之间有一个空行。
-\end{lstlisting}
-
-\verb|\\| 表示强制换行，但仍属于同一个段落，通常只用于表格单元格、
-诗歌或确有固定换行要求的位置。普通正文不使用多个 \verb|\\| 制造
-段落或空白距离，也不通过连续空格调整位置。
-
-百分号 \verb|%| 后面的内容是源文件注释，不会出现在 PDF 中。若要
-在正文中显示某些特殊字符，需要在前面加反斜线，例如
-\verb|\%|、\verb|\_|、\verb|\&| 和 \verb|\#|。
-
-\section{强调、列表和脚注}
-
-需要语义强调时可使用 \verb|\emph{重点内容}|；有明确顺序的项目使用
-\texttt{enumerate}，没有顺序的项目使用 \texttt{itemize}。每个项目
-由 \verb|\item| 开始，编号或项目符号由模板自动生成。
-
-\begin{lstlisting}[language={[LaTeX]TeX}]
+完成论文写作主要涉及三个位置：
 \begin{enumerate}
-  \item 收集研究数据；
-  \item 建立分析模型；
-  \item 解释实验结果。
+  \item \texttt{main.tex}：填写封面信息、中英文摘要、致谢和附录，
+        并安排各章的先后顺序；
+  \item \texttt{chapters/}：保存正文各章，每一章对应一个
+        \texttt{.tex} 文件；
+  \item \texttt{references.bib}：保存参考文献数据。
 \end{enumerate}
+
+\texttt{swutthesis.cls} 负责字体、字号、行距、页眉页脚和目录等版式，
+正常写作时不修改该文件。模板会自动完成排版，不需要在正文中重复
+设置宋体、黑体、字号、行距或页码。
+
+\section{填写论文基本信息}
+
+\texttt{main.tex} 开头集中放置封面信息。花括号中的示例文字应替换为
+论文的实际信息：
+
+% 封面命令与 main.tex 保持一致，便于直接对照修改。
+\begin{lstlisting}[language={[LaTeX]TeX}]
+\thesistitle{论文完整题目}
+\coverthesistitle{封面题目第一行\\封面题目第二行}
+\thesissubtitle{副标题}
+
+\studentname{姓名}
+\studentid{学号}
+\college{学院名称}
+\major{专业名称}
+\supervisor{指导教师}
+\coverdate{二〇二六年六月}
 \end{lstlisting}
 
-补充说明可使用 \verb|\footnote{脚注内容}|。脚注编号、位置和样式由
-模板统一处理，正文中不需要手工输入脚注序号。
+\verb|\thesistitle| 中填写不换行的完整题目，用于页眉和 PDF 信息。
+封面需要换成两行时，在 \verb|\coverthesistitle| 中使用一次
+\verb|\\|。没有副标题时，删除或注释 \verb|\thesissubtitle| 所在行。
 
-\section{数学公式}
+中文摘要写在 \texttt{cnabstract} 环境中，关键词写入
+\verb|\cnkeywords{...}|；英文摘要写在 \texttt{enabstract} 环境中，
+关键词写入 \verb|\enkeywords{...}|。直接替换模板中的示例内容即可，
+摘要标题、缩进、行距和关键词样式均会自动生成。
 
-段落中的简短公式使用 \verb|\(...\)|，例如质能关系
-\(E=mc^2\)。需要独立编号的公式使用 \texttt{equation} 环境，并通过
-\verb|\label| 设置标识。正文使用 \verb|\eqref| 引用公式编号。
+\section{建立正文各章}
+
+正文文件统一放在 \texttt{chapters/} 目录中。例如，新建
+\texttt{chapters/method.tex} 后，可按以下结构开始写作：
+
+\begin{lstlisting}[language={[LaTeX]TeX},float=htbp]
+\chapter{研究方法}
+
+\section{总体方案}
+这里填写正文。
+
+\subsection{数据来源}
+这里填写正文。
+
+\subsubsection{样本筛选}
+这里填写正文。
+\end{lstlisting}
+
+四个标题命令在 PDF 中依次显示为“第一章”“1.1”“1.1.1”和“（1）”
+等层级。标题文字中不输入编号，目录和编号由模板自动生成。
+
+新建的章节文件还需要在 \texttt{main.tex} 正文区域加入：
 
 \begin{lstlisting}[language={[LaTeX]TeX}]
-\begin{equation}
-  S_n = \sum_{i=1}^{n} x_i
-  \label{eq:quickstart-sum}
-\end{equation}
-
-由式~\eqref{eq:quickstart-sum} 可得样本总和。
+\include{chapters/method}
 \end{lstlisting}
 
-上述代码生成的公式为
-\begin{equation}
-  S_n = \sum_{i=1}^{n} x_i .
-  \label{eq:quickstart-sum}
-\end{equation}
-由式~\eqref{eq:quickstart-sum} 可引用其自动编号。
+\verb|\include| 的排列顺序就是最终的章节顺序。文件名末尾的
+\texttt{.tex} 不写入命令。
 
-\section{图片、表格和交叉引用}
+\section{输入正文和分段}
 
-图片文件通常放在 \texttt{assets/} 目录中，并使用 \texttt{figure}
-环境插入。\verb|\caption| 生成图题和编号，\verb|\label| 应写在
-\verb|\caption| 后面。表格采用相同的标识和引用方法。
+正文直接输入在相应标题下方。两段文字之间保留一个空行，模板会自动
+设置首行缩进和段落行距：
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+这是第一个自然段。源文件中的普通换行不会开始新段落，
+PDF 会根据页面宽度自动断行。
+
+这是第二个自然段。两个自然段之间保留一个空行。
+\end{lstlisting}
+
+普通正文不使用 \verb|\\| 换段，也不使用连续空格或空行调整位置。
+百分号 \verb|%| 后面的内容只作为源文件注释，不会显示在 PDF 中。
+正文中需要显示百分号、下划线或连接符号时，分别写成
+\verb|\%|、\verb|\_| 和 \verb|\&|。
+
+\section{插入图片、表格和公式}
+
+图片文件放入 \texttt{assets/} 目录，再复制以下代码并替换文件名和
+图题：
 
 \begin{lstlisting}[language={[LaTeX]TeX},float=htbp]
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.7\textwidth]{assets/example.png}
+  \includegraphics[width=0.72\textwidth]{assets/图片文件名.png}
   \caption{图片标题}
-  \label{fig:example}
+  \label{fig:图片标识}
 \end{figure}
 
-如图~\ref{fig:example} 所示，……
+如图~\ref{fig:图片标识} 所示，……
 \end{lstlisting}
 
-标识名称只在源文件中使用，建议采用统一前缀，例如章节使用
-\texttt{sec:}、公式使用 \texttt{eq:}、图片使用 \texttt{fig:}、
-表格使用 \texttt{tab:}。本示例后文的图~\ref{fig:distribution} 和
-表~\ref{tab:gear} 都通过这种方式引用，内容移动后编号仍会自动更新。
+\verb|\label| 中的标识只在源文件中使用，每个标识应保持唯一。
+正文通过 \verb|\ref| 引用图号，图片移动后编号会自动更新。
 
-\section{参考文献与编译}
+表格和公式的完整标准写法已放在
+\texttt{chapters/academic-writing.tex} 中。实际写作时复制其中一个
+完整示例，再替换表题、数据或公式内容即可。表格使用
+\texttt{table} 和 \texttt{swuttable}，独立编号的公式使用
+\texttt{equation}；编号均由模板自动生成。
 
-参考文献数据保存在 \texttt{references.bib} 中，每条记录都有唯一的
-引用键。正文使用 \verb|\cite{引用键}| 插入引用，例如
-\verb|\cite{ctex2022manual}| 会生成文献引用\cite{ctex2022manual}。
-参考文献列表由模板自动汇总和排版。
+\section{引用参考文献}
 
-在项目根目录运行以下命令即可编译：
+\texttt{references.bib} 已包含图书、期刊论文、学位论文、标准和网络
+资料等示例。新增文献时，复制类型最接近的一条记录，修改作者、题名、
+年份等字段，并设置一个不重复的引用键。例如，数据库中已有引用键
+\texttt{wu2010film}，正文引用方式为：
+
+\begin{lstlisting}[language={[LaTeX]TeX}]
+薄膜生长过程具有明显的阶段性特征\cite{wu2010film}。
+\end{lstlisting}
+
+文献序号和文末参考文献表会自动生成。正式论文中删除
+\texttt{main.tex} 里的 \verb|\nocite{*}| 后，参考文献表只列出正文
+实际引用的记录。
+
+\section{编译并查看结果}
+
+在项目根目录运行：
 
 \begin{lstlisting}[language=bash]
 latexmk main.tex
 \end{lstlisting}
 
-\texttt{latexmk} 会自动调用 XeLaTeX 和 Biber，并完成目录、公式编号、
-交叉引用和参考文献所需的多轮编译。如果 PDF 中出现“??”，应先检查
-\verb|\label| 名称是否一致，再重新完整编译。
+编译完成后查看 \texttt{main.pdf}。修改标题、图表、公式或参考文献后，
+仍使用同一条命令重新编译；\texttt{latexmk} 会自动完成目录、编号、
+交叉引用和参考文献所需的多轮处理。
 
-\section{常见错误和建议}
-
-\begin{enumerate}
-  \item 命令参数的花括号、环境的开始与结束必须成对出现；
-  \item 章节、图表、公式、脚注和参考文献编号由模板自动生成；
-  \item 版面位置不通过连续空格、空行或强制换行调整；
-  \item 图片路径和文献引用键应与文件中的名称完全一致；
-  \item 遇到错误时，先查看日志中最早出现的报错位置。
-\end{enumerate}
-
-更多基础资料可查阅 LaTeX 项目文档
-\url{https://www.latex-project.org/help/documentation/}，以及 Overleaf
-的入门教程
-\url{https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes}。
+写作过程中只维护论文内容，不手工输入章节编号、图表编号、页码或
+目录点线，也不通过空格和换行模拟版式。模板中的示例可以直接复制，
+替换内容后重新编译即可。
