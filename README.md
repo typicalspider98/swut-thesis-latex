@@ -13,50 +13,64 @@ XeLaTeX 对 UTF-8 中文、系统字体及 OpenType/TrueType 字体的支持；
 使用 pdfLaTeX 会直接停止编译。项目中的 `latexmkrc` 已设置为调用
 XeLaTeX 和 Biber，在本地运行 `latexmk main.tex` 即可。
 
-## 快速开始
+## 快速开始（推荐在线使用）
 
-1. 安装 TeX Live 2023 或更新版本，并确保包含 `ctex`、`biblatex`、
-   `biblatex-gb7714-2015` 和 Biber。
-2. 修改 `main.tex` 第 2 区的论文题目、作者、学院、专业等信息。
+无需在电脑上安装 LaTeX 环境。请先从
+[Gitee 发行版页面](https://gitee.com/typicalspider/swut-thesis-latex/releases)
+下载最新版本的 ZIP 压缩包，然后将 ZIP 直接导入在线 LaTeX 平台。
+不要先解压后逐个上传文件，否则容易遗漏目录或资源文件。
+
+### 使用 Overleaf
+
+1. 登录 [Overleaf](https://www.overleaf.com/)，在项目页面依次选择
+   **New Project → Upload Project**。
+2. 选择下载的模板 ZIP 压缩包并等待导入完成。
+3. 进入项目后，打开左上角的 **Menu**，在 **Compiler** 中选择
+   **XeLaTeX**，不能使用默认的 pdfLaTeX。
+4. 确认主文档为 `main.tex`，然后点击 **Recompile** 完成编译。
+
+### 使用中国科技云论文协同编辑服务
+
+登录[中国科技云论文协同编辑服务](https://latex.cstcloud.cn/)后，按照
+与 Overleaf 相同的方式上传模板 ZIP。导入后同样需要打开左上角的
+**Menu**，将 **Compiler** 设置为 **XeLaTeX**，主文档设置为
+`main.tex`。该服务可使用微信扫码登录，服务介绍见
+[中国科技云资源页面](https://www1.cstcloud.cn/resources/452)。
+
+两个平台的默认编译器都可能是 pdfLaTeX。首次导入后必须先检查
+**Menu → Compiler**，确认已经选择 **XeLaTeX**，再开始编译。
+
+导入并编译成功后：
+
+1. 修改 `main.tex` 第 2 区的论文题目、作者、学院、专业等信息。
    `\thesistitle` 保存用于页眉、书签等位置的完整题目；封面需要指定
    换行时，使用 `\coverthesistitle{第一行\\第二行}`；可选的第三行
    使用 `\thesissubtitle{副标题}`，没有副标题时删除或注释该命令。
    示例 PDF 中已直接标注“主标题示例”和“副标题示例”，便于辨认。
-3. 在 `chapters/` 中撰写正文，在 `references.bib` 中维护参考文献。
+2. 在 `chapters/` 中撰写正文，在 `references.bib` 中维护参考文献。
    第二章“模板快速上手”说明了新建章节、正文分段、插图、引用和
    编译的推荐写法。
-4. 在项目根目录运行：
 
-   ```powershell
-   latexmk main.tex
-   ```
+## 本地编译（可选）
 
-   如需手动编译，可依次运行：
+如需在本地使用，请安装 TeX Live 2023 或更新版本，并确保包含
+`ctex`、`biblatex`、`biblatex-gb7714-2015` 和 Biber。在项目根目录
+运行：
 
-   ```powershell
-   xelatex main.tex
-   biber main
-   xelatex main.tex
-   xelatex main.tex
-   ```
+```powershell
+latexmk main.tex
+```
+
+如需手动编译，可依次运行：
+
+```powershell
+xelatex main.tex
+biber main
+xelatex main.tex
+xelatex main.tex
+```
 
 生成文件为 `main.pdf`。
-
-## 在线 LaTeX 平台
-
-将整个项目压缩为 ZIP 文件后，可以上传到以下在线平台使用：
-
-- [Overleaf](https://www.overleaf.com/)：创建项目时选择“Upload Project”
-  上传 ZIP；打开项目设置，将编译器明确选择为 **XeLaTeX**，主文档设置
-  为 `main.tex`。
-- [中国科技云论文协同编辑服务](https://latex.cstcloud.cn/)：中国科技云
-  部署的 Overleaf 服务，支持项目上传、多人协作、版本控制及 TeX Live
-  版本选择。按页面提示使用微信扫码登录后上传 ZIP，并将编译器选择为
-  **XeLaTeX**。
-  服务介绍与入口说明见[中国科技云资源页面](https://www1.cstcloud.cn/resources/452)。
-
-两个平台的默认编译器都可能不是 XeLaTeX。首次导入项目后应先检查
-编译器设置，再执行编译。
 
 ## 已实现的版式与功能
 
@@ -116,5 +130,6 @@ XeLaTeX 和 Biber，在本地运行 `latexmk main.tex` 即可。
 - **v0.2（2026-07-24）**：完善封面、声明、摘要、目录、图表、公式、
   参考文献、致谢和附录；补充模板快速上手章节，统一代码块排版和分页
   行为；明确 XeLaTeX 编译要求和在线平台使用方式，清理已知的 xeCJK
-  字体重定义警告，并更新公开格式基线说明。
+  字体重定义警告，并更新公开格式基线说明；提供可直接导入 Overleaf
+  和中国科技云论文协同编辑服务的 ZIP 发行包。
 - **v0.1**：完成项目框架和 Word 模板主要版式规则的初步实现。
