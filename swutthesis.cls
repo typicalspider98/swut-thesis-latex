@@ -650,9 +650,16 @@
   tabsize=4,
   xleftmargin=0.5em,
   xrightmargin=0.5em,
-  aboveskip=0.8\baselineskip,
-  belowskip=0.8\baselineskip,
+  aboveskip=0.35\baselineskip,
+  belowskip=0.35\baselineskip,
   float=htbp
+}
+% A floating listing otherwise receives both the listing skip and LaTeX's
+% comparatively large generic float separation.  Keep code visually attached
+% to its explanation while retaining the whole-block page-breaking behaviour.
+\AtBeginEnvironment{lstlisting}{%
+  \setlength{\intextsep}{0.35\baselineskip}%
+  \setlength{\textfloatsep}{0.35\baselineskip}%
 }
 \AfterEndEnvironment{lstlisting}{\FloatBarrier}
 

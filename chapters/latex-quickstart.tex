@@ -1,4 +1,4 @@
-% 第二章：面向第一次接触 LaTeX 的学生，只介绍完成论文所需的核心语法。
+% 第二章：完成论文写作所需的 LaTeX 核心语法。
 \chapter{LaTeX 快速入门}
 
 \section{源文件、命令和环境}
@@ -9,31 +9,33 @@ LaTeX 源文件是带有命令的纯文本文件。普通文字会直接进入�
 
 较长的功能通常使用环境表示，并由名称相同的
 \verb|\begin{...}| 和 \verb|\end{...}| 包围。开始与结束命令必须
-成对出现。学生一般只需修改 \texttt{main.tex}、\texttt{chapters/}
-中的章节文件和 \texttt{references.bib}，不需要修改文档类文件。
+成对出现。论文内容主要在 \texttt{main.tex}、\texttt{chapters/}
+中的章节文件和 \texttt{references.bib} 中编辑；文档类文件负责实现
+统一版式，常规写作过程中无须修改。
 
-\begin{verbatim}
+% 所有示例统一使用模板定义的代码块样式。
+\begin{lstlisting}[language={[LaTeX]TeX}]
 \chapter{实验与分析}
 \section{实验方案}
 \subsection{数据采集}
 
 这里填写正文内容。
-\end{verbatim}
+\end{lstlisting}
 
 \section{使用章节命令组织论文}
 
 本模板使用章节命令建立标题层级，下面的四行代码依次表示章、节、
 小节和四级标题。模板会根据命令所在层级自动生成标题编号、目录条目
-和 PDF 书签，因此不要在标题文字中手工输入“第一章”或“1.1”等编号。
+和 PDF 书签，标题文字中无须手工输入“第一章”或“1.1”等编号。
 
-\begin{verbatim}
+\begin{lstlisting}[language={[LaTeX]TeX}]
 \chapter{研究方法}
 \section{总体方案}
 \subsection{数据来源}
 \subsubsection{样本筛选}
-\end{verbatim}
+\end{lstlisting}
 
-如果调整了章节顺序，只需移动相应命令或章节文件，编号和目录会在
+调整章节顺序时，可移动相应命令或章节文件，编号和目录会在
 重新编译后自动更新。
 
 \section{自然段、换行和注释}
@@ -42,16 +44,16 @@ LaTeX 源文件是带有命令的纯文本文件。普通文字会直接进入�
 两段文字之间保留一个空行，也可以使用 \verb|\par|。这种写法能让
 模板自动应用首行缩进和段落间距。
 
-\begin{verbatim}
+\begin{lstlisting}[language={[LaTeX]TeX}]
 这是第一个自然段。源文件可以在合适的位置换行，
 但 PDF 会根据版心宽度自动重新断行。
 
 这是第二个自然段。两段之间有一个空行。
-\end{verbatim}
+\end{lstlisting}
 
 \verb|\\| 表示强制换行，但仍属于同一个段落，通常只用于表格单元格、
-诗歌或确有固定换行要求的位置。普通正文不要使用多个 \verb|\\| 制造
-段落或空白距离，也不要用连续空格调整位置。
+诗歌或确有固定换行要求的位置。普通正文不使用多个 \verb|\\| 制造
+段落或空白距离，也不通过连续空格调整位置。
 
 百分号 \verb|%| 后面的内容是源文件注释，不会出现在 PDF 中。若要
 在正文中显示某些特殊字符，需要在前面加反斜线，例如
@@ -63,13 +65,13 @@ LaTeX 源文件是带有命令的纯文本文件。普通文字会直接进入�
 \texttt{enumerate}，没有顺序的项目使用 \texttt{itemize}。每个项目
 由 \verb|\item| 开始，编号或项目符号由模板自动生成。
 
-\begin{verbatim}
+\begin{lstlisting}[language={[LaTeX]TeX}]
 \begin{enumerate}
   \item 收集研究数据；
   \item 建立分析模型；
   \item 解释实验结果。
 \end{enumerate}
-\end{verbatim}
+\end{lstlisting}
 
 补充说明可使用 \verb|\footnote{脚注内容}|。脚注编号、位置和样式由
 模板统一处理，正文中不需要手工输入脚注序号。
@@ -80,14 +82,14 @@ LaTeX 源文件是带有命令的纯文本文件。普通文字会直接进入�
 \(E=mc^2\)。需要独立编号的公式使用 \texttt{equation} 环境，并通过
 \verb|\label| 设置标识。正文使用 \verb|\eqref| 引用公式编号。
 
-\begin{verbatim}
+\begin{lstlisting}[language={[LaTeX]TeX}]
 \begin{equation}
   S_n = \sum_{i=1}^{n} x_i
   \label{eq:quickstart-sum}
 \end{equation}
 
 由式~\eqref{eq:quickstart-sum} 可得样本总和。
-\end{verbatim}
+\end{lstlisting}
 
 上述代码生成的公式为
 \begin{equation}
@@ -102,7 +104,7 @@ LaTeX 源文件是带有命令的纯文本文件。普通文字会直接进入�
 环境插入。\verb|\caption| 生成图题和编号，\verb|\label| 应写在
 \verb|\caption| 后面。表格采用相同的标识和引用方法。
 
-\begin{verbatim}
+\begin{lstlisting}[language={[LaTeX]TeX},float=htbp]
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.7\textwidth]{assets/example.png}
@@ -111,7 +113,7 @@ LaTeX 源文件是带有命令的纯文本文件。普通文字会直接进入�
 \end{figure}
 
 如图~\ref{fig:example} 所示，……
-\end{verbatim}
+\end{lstlisting}
 
 标识名称只在源文件中使用，建议采用统一前缀，例如章节使用
 \texttt{sec:}、公式使用 \texttt{eq:}、图片使用 \texttt{fig:}、
@@ -127,9 +129,9 @@ LaTeX 源文件是带有命令的纯文本文件。普通文字会直接进入�
 
 在项目根目录运行以下命令即可编译：
 
-\begin{verbatim}
+\begin{lstlisting}[language=bash]
 latexmk main.tex
-\end{verbatim}
+\end{lstlisting}
 
 \texttt{latexmk} 会自动调用 XeLaTeX 和 Biber，并完成目录、公式编号、
 交叉引用和参考文献所需的多轮编译。如果 PDF 中出现“??”，应先检查
@@ -139,8 +141,8 @@ latexmk main.tex
 
 \begin{enumerate}
   \item 命令参数的花括号、环境的开始与结束必须成对出现；
-  \item 不要手工输入章节、图表、公式、脚注和参考文献编号；
-  \item 不要用连续空格、空行或强制换行调整版面；
+  \item 章节、图表、公式、脚注和参考文献编号由模板自动生成；
+  \item 版面位置不通过连续空格、空行或强制换行调整；
   \item 图片路径和文献引用键应与文件中的名称完全一致；
   \item 遇到错误时，先查看日志中最早出现的报错位置。
 \end{enumerate}
