@@ -1,6 +1,6 @@
 # 山东外国语职业技术大学本科毕业设计（论文）LaTeX 模板
 
-当前版本：v0.2.0（模板可用版）
+当前版本：v0.2.1（模板可用版）
 
 本项目以学校发布的
 `SWUT-2026届毕业设计（论文）格式模板网站公布版.docx`
@@ -17,6 +17,8 @@ XeLaTeX 和 Biber，在本地运行 `latexmk main.tex` 即可。
 
 无需在电脑上安装 LaTeX 环境。请先从
 [Gitee 发行版页面](https://gitee.com/typicalspider/swut-thesis-latex/releases)
+或
+[GitHub Releases](https://github.com/typicalspider98/swut-thesis-latex/releases)
 下载最新版本的 ZIP 压缩包，然后将 ZIP 直接导入在线 LaTeX 平台。
 不要先解压后逐个上传文件，否则容易遗漏目录或资源文件。
 
@@ -155,6 +157,10 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
 
 ## 版本记录
 
+- **v0.2.1（2026-07-27）**：补充诚信承诺书和版权使用授权声明的日期
+  命令，支持直接填写或留空手写；隐藏声明页签名提示文字，微调封面
+  信息栏线条，并补充方正字体的官方获取与本地放置说明；增加 GitHub
+  Release 下载入口。
 - **v0.2.0（2026-07-24）**：完善封面、声明、摘要、目录、图表、公式、
   参考文献、致谢和附录；补充模板快速上手章节，统一代码块排版和分页
   行为；明确 XeLaTeX 编译要求和在线平台使用方式，清理已知的 xeCJK

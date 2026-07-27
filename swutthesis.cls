@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{swutthesis}[2026/07/24 v0.2.0 SWUT undergraduate thesis class]
+\ProvidesClass{swutthesis}[2026/07/27 v0.2.1 SWUT undergraduate thesis class]
 
 % ============================================================================
 % Internal implementation of the SWUT undergraduate thesis template.
