@@ -175,6 +175,12 @@
 \newcommand{\swut@major}{}
 \newcommand{\swut@supervisor}{}
 \newcommand{\swut@date}{二〇二六年六月}
+\newcommand{\swut@commitmentyear}{}
+\newcommand{\swut@commitmentmonth}{}
+\newcommand{\swut@commitmentday}{}
+\newcommand{\swut@authorizationyear}{}
+\newcommand{\swut@authorizationmonth}{}
+\newcommand{\swut@authorizationday}{}
 
 \newcommand{\thesistitle}[1]{%
   \gdef\swut@title{#1}%
@@ -188,6 +194,14 @@
 \newcommand{\major}[1]{\gdef\swut@major{#1}}
 \newcommand{\supervisor}[1]{\gdef\swut@supervisor{#1}}
 \newcommand{\coverdate}[1]{\gdef\swut@date{#1}\date{#1}}
+\newcommand{\commitmentdate}[3]{%
+  \gdef\swut@commitmentyear{#1}%
+  \gdef\swut@commitmentmonth{#2}%
+  \gdef\swut@commitmentday{#3}}
+\newcommand{\authorizationdate}[3]{%
+  \gdef\swut@authorizationyear{#1}%
+  \gdef\swut@authorizationmonth{#2}%
+  \gdef\swut@authorizationday{#3}}
 
 % ----------------------------------------------------------------------------
 % 5. Cover and declaration pages
@@ -276,8 +290,9 @@
   \clearpage
 }
 
-% #1 signature row coordinate; #2 underline/date reference coordinate.
-\newcommand{\swut@declarationsignature}[2]{%
+% #1 signature row coordinate; #2 underline/date reference coordinate;
+% #3 year; #4 month; #5 day. Empty date fields leave room for handwriting.
+\newcommand{\swut@declarationsignature}[5]{%
   \node[anchor=north west,inner sep=0pt]
     at ([xshift=317.5bp,yshift=-#1]current page.north west)
     {{\songti\rmfamily\fontsize{12bp}{18bp}\selectfont 作者签名：}};
@@ -290,9 +305,9 @@
     at ([xshift=317.5bp,yshift=-\dimexpr#2+22bp\relax]current page.north west)
     {{\songti\rmfamily\fontsize{12bp}{18bp}\selectfont
       日\hspace{24bp}期：}};
-  \node[anchor=north west,inner sep=0pt]
+  \node[anchor=north west,inner sep=0pt,text width=34.5bp,align=center]
     at ([xshift=388.5bp,yshift=-\dimexpr#2+22bp\relax]current page.north west)
-    {{\rmfamily\fontsize{12bp}{18bp}\selectfont 20}};
+    {{\rmfamily\fontsize{12bp}{18bp}\selectfont #3}};
   \node[anchor=north west,inner sep=0pt]
     at ([xshift=424bp,yshift=-\dimexpr#2+22bp\relax]current page.north west)
     {{\songti\fontsize{12bp}{18bp}\selectfont 年}};
@@ -302,6 +317,12 @@
   \node[anchor=north west,inner sep=0pt]
     at ([xshift=516bp,yshift=-\dimexpr#2+22bp\relax]current page.north west)
     {{\songti\fontsize{12bp}{18bp}\selectfont 日}};
+  \node[anchor=north west,inner sep=0pt,text width=31bp,align=center]
+    at ([xshift=438bp,yshift=-\dimexpr#2+22bp\relax]current page.north west)
+    {{\rmfamily\fontsize{12bp}{18bp}\selectfont #4}};
+  \node[anchor=north west,inner sep=0pt,text width=31bp,align=center]
+    at ([xshift=484bp,yshift=-\dimexpr#2+22bp\relax]current page.north west)
+    {{\rmfamily\fontsize{12bp}{18bp}\selectfont #5}};
   \draw[line width=0.5bp]
     ([xshift=388.5bp,yshift=-\dimexpr#2+34bp\relax]current page.north west) --
     ([xshift=423bp,yshift=-\dimexpr#2+34bp\relax]current page.north west);
@@ -331,6 +352,7 @@
         的成果作品。对本设计（论文）所涉及的研究工作作出贡献的其他个人
         和集体，均已在文中以明确方式标明。\par}};
     \swut@declarationsignature{241.5bp}{275bp}
+      {\swut@commitmentyear}{\swut@commitmentmonth}{\swut@commitmentday}
 
     \node[anchor=north,inner sep=0pt]
       at ([yshift=-360.5bp]current page.north)
@@ -346,6 +368,8 @@
         文被查阅和借阅；有权可以采用影印、缩印或扫描等复制手段保存、汇
         编学位论文。\par}};
     \swut@declarationsignature{531.5bp}{565bp}
+      {\swut@authorizationyear}{\swut@authorizationmonth}
+      {\swut@authorizationday}
   \end{tikzpicture}
   \null
   \clearpage

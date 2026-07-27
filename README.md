@@ -46,6 +46,10 @@ XeLaTeX 和 Biber，在本地运行 `latexmk main.tex` 即可。
    `\thesistitle` 保存用于页眉、书签等位置的完整题目；封面需要指定
    换行时，使用 `\coverthesistitle{第一行\\第二行}`；可选的第三行
    使用 `\thesissubtitle{副标题}`，没有副标题时删除或注释该命令。
+   诚信承诺书和版权使用授权声明的日期分别使用
+   `\commitmentdate{年}{月}{日}` 与
+   `\authorizationdate{年}{月}{日}` 填写；需要打印后手写时将三个
+   参数留空即可。
    示例 PDF 中已直接标注“主标题示例”和“副标题示例”，便于辨认。
 2. 在 `chapters/` 中撰写正文，在 `references.bib` 中维护参考文献。
    第二章“模板快速上手”说明了新建章节、正文分段、插图、引用和

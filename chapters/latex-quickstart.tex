@@ -33,11 +33,18 @@
 \major{专业名称}
 \supervisor{指导教师}
 \coverdate{二〇二六年六月}
+
+\commitmentdate{2026}{6}{20}
+\authorizationdate{2026}{6}{20}
 \end{lstlisting}
 
 \verb|\thesistitle| 中填写不换行的完整题目，用于页眉和 PDF 信息。
 封面需要换成两行时，在 \verb|\coverthesistitle| 中使用一次
 \verb|\\|。没有副标题时，删除或注释 \verb|\thesissubtitle| 所在行。
+\verb|\commitmentdate{年}{月}{日}| 和
+\verb|\authorizationdate{年}{月}{日}| 分别填写诚信承诺书与版权使用
+授权声明的日期。如需在打印后手写日期，可将对应命令写为
+\verb|\commitmentdate{}{}{}| 或 \verb|\authorizationdate{}{}{}|。
 
 中文摘要写在 \texttt{cnabstract} 环境中，关键词写入
 \verb|\cnkeywords{...}|；英文摘要写在 \texttt{enabstract} 环境中，
