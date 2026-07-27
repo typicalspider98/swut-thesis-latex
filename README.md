@@ -1,10 +1,61 @@
+<div align="center">
+
 # 山东外国语职业技术大学本科毕业设计（论文）LaTeX 模板
 
-当前版本：v0.2.1（模板可用版）
+**面向全校本科生的中文毕业设计（论文）排版模板**
+
+[![Version](https://img.shields.io/badge/version-v0.2.1-1677ff?style=flat-square)](https://gitee.com/typicalspider/swut-thesis-latex/releases)
+[![Engine](https://img.shields.io/badge/engine-XeLaTeX-008080?style=flat-square)](#编译器要求)
+[![Online](https://img.shields.io/badge/online-Overleaf%20%7C%20CSTCloud-2e7d32?style=flat-square)](#快速开始推荐在线使用)
+[![Code License](https://img.shields.io/badge/code%20license-MIT-f5a623?style=flat-square)](LICENSE)
+
+[完整示例 PDF](main.pdf) ·
+[Gitee 发行版](https://gitee.com/typicalspider/swut-thesis-latex/releases) ·
+[GitHub Releases](https://github.com/typicalspider98/swut-thesis-latex/releases)
+
+</div>
 
 本项目以学校发布的
 `SWUT-2026届毕业设计（论文）格式模板网站公布版.docx`
-为排版规范来源。模板面向中文本科毕业设计（论文）。
+为排版规范来源，面向中文本科毕业设计（论文）。模板统一处理封面、
+声明、摘要、目录、正文、图表、参考文献、致谢和附录等版式，使用者
+主要填写论文信息与内容，无需逐项手工调整字体、字号和行距。
+
+## 模板预览
+
+<table>
+  <tr>
+    <td align="center" width="25%">
+      <a href="docs/images/readme/preview-cover.png">
+        <img src="docs/images/readme/preview-cover.png" alt="论文封面预览">
+      </a>
+      <br><sub>论文封面</sub>
+    </td>
+    <td align="center" width="25%">
+      <a href="docs/images/readme/preview-declaration.png">
+        <img src="docs/images/readme/preview-declaration.png" alt="诚信承诺书与版权使用授权声明预览">
+      </a>
+      <br><sub>承诺书与授权声明</sub>
+    </td>
+    <td align="center" width="25%">
+      <a href="docs/images/readme/preview-contents.png">
+        <img src="docs/images/readme/preview-contents.png" alt="论文目录预览">
+      </a>
+      <br><sub>自动生成的目录</sub>
+    </td>
+    <td align="center" width="25%">
+      <a href="docs/images/readme/preview-figures.png">
+        <img src="docs/images/readme/preview-figures.png" alt="图片、表格和正文排版预览">
+      </a>
+      <br><sub>图片、表格与正文</sub>
+    </td>
+  </tr>
+</table>
+
+<p align="center">
+  点击缩略图可查看原图，完整排版效果请查看
+  <a href="main.pdf"><strong>main.pdf</strong></a>。
+</p>
 
 ## 编译器要求
 
@@ -56,6 +107,34 @@ XeLaTeX 和 Biber，在本地运行 `latexmk main.tex` 即可。
 2. 在 `chapters/` 中撰写正文，在 `references.bib` 中维护参考文献。
    第二章“模板快速上手”说明了新建章节、正文分段、插图、引用和
    编译的推荐写法。
+
+## 使用界面
+
+下图分别展示在线平台与本地编辑器中的典型工作界面。图片可点击放大；
+两种方式生成的论文版式一致，选择适合自己的写作环境即可。
+
+<table>
+  <tr>
+    <th width="50%">Overleaf 在线编译</th>
+    <th width="50%">TeXstudio 本地编译</th>
+  </tr>
+  <tr>
+    <td>
+      <a href="docs/images/readme/overleaf-workspace.png">
+        <img src="docs/images/readme/overleaf-workspace.png" alt="Overleaf 在线编辑与 PDF 预览界面">
+      </a>
+    </td>
+    <td>
+      <a href="docs/images/readme/texstudio-workspace.png">
+        <img src="docs/images/readme/texstudio-workspace.png" alt="TeXstudio 本地编辑、编译与 PDF 预览界面">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center"><sub>上传发行版 ZIP，选择 XeLaTeX 后即可编译</sub></td>
+    <td align="center"><sub>配合 MiKTeX 完成本地编辑、编译和 PDF 预览</sub></td>
+  </tr>
+</table>
 
 ## 本地编译（可选）
 
