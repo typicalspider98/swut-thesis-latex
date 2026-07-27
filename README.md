@@ -59,9 +59,30 @@ XeLaTeX 和 Biber，在本地运行 `latexmk main.tex` 即可。
 
 ## 本地编译（可选）
 
-如需在本地使用，请安装 TeX Live 2023 或更新版本，并确保包含
-`ctex`、`biblatex`、`biblatex-gb7714-2015` 和 Biber。在项目根目录
-运行：
+在 Windows 系统中，建议配合 MiKTeX 与 TeXstudio 使用：
+
+- [MiKTeX](https://miktex.org/download) 是 TeX 发行版，提供 XeLaTeX、
+  Biber、宏包管理器以及生成 PDF 所需的基础组件。Windows 用户可下载
+  **Basic Installer** 完成安装。
+- [TeXstudio](https://www.texstudio.org/) 是集成式 LaTeX 编辑器，提供
+  语法高亮、命令补全、错误定位、内置 PDF 查看器以及源代码与 PDF
+  双向定位等功能。
+
+MiKTeX 负责提供编译器和宏包，TeXstudio 负责编辑源文件并调用编译
+工具。TeXstudio 本身不包含完整的 TeX 编译环境，因此应先安装
+MiKTeX，再安装 TeXstudio。
+
+完成安装后，建议进行以下配置：
+
+1. 打开 MiKTeX Console，检查并安装可用更新。
+2. 在 MiKTeX Console 中启用缺失宏包的自动安装功能。首次编译本模板
+   时，MiKTeX 将按需安装 `ctex`、`biblatex` 和
+   `biblatex-gb7714-2015` 等宏包。
+3. 打开 TeXstudio 的构建设置，将默认编译器设为 **XeLaTeX**，将默认
+   参考文献工具设为 **Biber**。
+4. 使用 TeXstudio 打开项目根目录中的 `main.tex`，然后执行构建。
+
+也可以在项目根目录通过命令行完成编译：
 
 ```powershell
 latexmk main.tex
