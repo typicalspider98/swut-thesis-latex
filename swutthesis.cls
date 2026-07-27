@@ -269,8 +269,9 @@
           \fi
         }};
 
-      \swut@coverrow{学生姓名：}{\swut@author}{469.50bp}{498.00bp}
-      \swut@coverrow{学\hspace{18bp}号：}{\swut@studentid}{508.00bp}{537.00bp}
+      % The five form rows share a strict 38.5 bp vertical grid.
+      \swut@coverrow{学生姓名：}{\swut@author}{469.00bp}{498.00bp}
+      \swut@coverrow{学\hspace{18bp}号：}{\swut@studentid}{507.50bp}{536.50bp}
       \swut@coverrow{学\hspace{18bp}院：}{\swut@college}{546.00bp}{575.00bp}
       \swut@coverrow{专\hspace{18bp}业：}{\swut@major}{584.50bp}{613.50bp}
       \swut@coverrow{指导教师：}{\swut@supervisor}{623.00bp}{652.00bp}
