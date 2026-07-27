@@ -281,10 +281,8 @@
   \node[anchor=north west,inner sep=0pt]
     at ([xshift=317.5bp,yshift=-#1]current page.north west)
     {{\songti\rmfamily\fontsize{12bp}{18bp}\selectfont 作者签名：}};
-  \node[anchor=north west,inner sep=0pt,text=red]
-    at ([xshift=404bp,yshift=-#1]current page.north west)
-    {{\songti\rmfamily\bfseries\fontsize{12bp}{18bp}\selectfont
-      （手签）（完稿请删除）}};
+  % 原 Word 模板提示：“（手签）（完稿请删除）”。
+  % 该内容仅用于提醒作者在打印稿上手写签名，不输出到最终 PDF。
   \draw[line width=0.5bp]
     ([xshift=382.5bp,yshift=-#2]current page.north west) --
     ([xshift=539bp,yshift=-#2]current page.north west);
