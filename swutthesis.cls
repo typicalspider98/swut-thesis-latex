@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{swutthesis}[2026/07/27 v0.2.1 SWUT undergraduate thesis class]
+\ProvidesClass{swutthesis}[2026/07/27 v0.2.2 SWUT undergraduate thesis class]
 
 % ============================================================================
 % Internal implementation of the SWUT undergraduate thesis template.
@@ -17,7 +17,7 @@
     {Please compile with xelatex.}
 \fi
 
-\LoadClass[a4paper,UTF8,zihao=-4,twoside,openany]{ctexbook}
+\LoadClass[a4paper,UTF8,zihao=-4,twoside,openany,fontset=none]{ctexbook}
 
 % Page geometry
 \RequirePackage{geometry}
@@ -82,10 +82,17 @@
 \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 
 % Western fonts: prefer the fonts named by the Word specification, then use
-% metrically compatible TeX Live fonts.
+% metrically compatible TeX Live fonts.  Cache the Times New Roman probe
+% because the same decision is reused for the page-number family.
+\newif\ifswut@hastimesnewroman
 \IfFontExistsTF{Times New Roman}
-  {\setmainfont{Times New Roman}}
-  {\setmainfont{TeX Gyre Termes}}
+  {\swut@hastimesnewromantrue}
+  {\swut@hastimesnewromanfalse}
+\ifswut@hastimesnewroman
+  \setmainfont{Times New Roman}
+\else
+  \setmainfont{TeX Gyre Termes}
+\fi
 \IfFontExistsTF{Arial}
   {\setsansfont{Arial}}
   {\setsansfont{TeX Gyre Heros}}
@@ -94,33 +101,51 @@
   {\setmonofont{TeX Gyre Cursor}}
 % Word uses an unscaled 10.5 pt Times New Roman page number.  Keep this family
 % separate because the document's Western fonts use MatchLowercase scaling.
-\IfFontExistsTF{Times New Roman}
-  {\newfontfamily\swutpagefont[Scale=1]{Times New Roman}}
-  {\newfontfamily\swutpagefont[Scale=1]{TeX Gyre Termes}}
+\ifswut@hastimesnewroman
+  \newfontfamily\swutpagefont[Scale=1]{Times New Roman}
+\else
+  \newfontfamily\swutpagefont[Scale=1]{TeX Gyre Termes}
+\fi
 
-% Chinese fonts: Windows -> macOS -> TeX Live fallback.
-% CTeX has already installed platform defaults.  Replacing the main and sans
-% defaults here is intentional, so suppress only its known redefinition notice.
-\ExplSyntaxOn
-\msg_redirect_name:nnn { xeCJK } { CJKfamily-redef } { none }
-\ExplSyntaxOff
+% Load exactly one complete Chinese font set.  ctexbook is loaded with
+% fontset=none above, so it does not initialize a platform default that would
+% immediately be replaced here.  One probe selects the Windows set, a second
+% selects the macOS set, and TeX Live's Fandol set is the portable fallback.
+\newif\ifswut@windowscjk
+\newif\ifswut@maccjk
 \IfFontExistsTF{SimSun}
-  {\setCJKmainfont[AutoFakeBold=2.5]{SimSun}}
+  {\swut@windowscjktrue}
   {
     \IfFontExistsTF{STSong}
-      {\setCJKmainfont[AutoFakeBold=2.5]{STSong}}
-      {\setCJKmainfont[AutoFakeBold=2.5]{FandolSong-Regular}}
+      {\swut@maccjktrue}
+      {}
   }
-\IfFontExistsTF{SimHei}
-  {\setCJKsansfont[AutoFakeBold=2.5]{SimHei}}
-  {
-    \IfFontExistsTF{STHeiti}
-      {\setCJKsansfont[AutoFakeBold=2.5]{STHeiti}}
-      {\setCJKsansfont[AutoFakeBold=2.5]{FandolHei-Regular}}
-  }
-\ExplSyntaxOn
-\msg_redirect_name:nnn { xeCJK } { CJKfamily-redef } { warning }
-\ExplSyntaxOff
+
+\ifswut@windowscjk
+  \setCJKmainfont[AutoFakeBold=2.5]{SimSun}
+  \setCJKsansfont[AutoFakeBold=2.5]{SimHei}
+  \setCJKmonofont{FangSong}
+  \setCJKfamilyfont{zhfs}{FangSong}
+  \setCJKfamilyfont{zhkai}{KaiTi}
+\else
+  \ifswut@maccjk
+    \setCJKmainfont[AutoFakeBold=2.5]{STSong}
+    \setCJKsansfont[AutoFakeBold=2.5]{STHeiti}
+    \setCJKmonofont{STFangsong}
+    \setCJKfamilyfont{zhfs}{STFangsong}
+    \setCJKfamilyfont{zhkai}{Kaiti SC}
+  \else
+    \setCJKmainfont[AutoFakeBold=2.5]{FandolSong-Regular}
+    \setCJKsansfont[AutoFakeBold=2.5]{FandolHei-Regular}
+    \setCJKmonofont{FandolFang-Regular}
+    \setCJKfamilyfont{zhfs}{FandolFang-Regular}
+    \setCJKfamilyfont{zhkai}{FandolKai-Regular}
+  \fi
+\fi
+\providecommand{\songti}{\CJKfamily{\CJKrmdefault}}
+\providecommand{\heiti}{\CJKfamily{\CJKsfdefault}}
+\providecommand{\fangsong}{\CJKfamily{zhfs}}
+\providecommand{\kaishu}{\CJKfamily{zhkai}}
 % The two supplied Founder fonts are loaded from the project without requiring
 % installation. ASCII aliases avoid non-ASCII path issues in XeTeX on Windows.
 \IfFileExists{fonts/FZXBS.ttf}

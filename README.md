@@ -4,7 +4,7 @@
 
 **面向全校本科生的中文毕业设计（论文）排版模板**
 
-[![Version](https://img.shields.io/badge/version-v0.2.1-1677ff?style=flat-square)](https://gitee.com/typicalspider/swut-thesis-latex/releases)
+[![Version](https://img.shields.io/badge/version-v0.2.2-1677ff?style=flat-square)](https://gitee.com/typicalspider/swut-thesis-latex/releases)
 [![Engine](https://img.shields.io/badge/engine-XeLaTeX-008080?style=flat-square)](#编译器要求)
 [![Online](https://img.shields.io/badge/online-Overleaf%20%7C%20CSTCloud-2e7d32?style=flat-square)](#快速开始推荐在线使用)
 [![Code License](https://img.shields.io/badge/code%20license-MIT-f5a623?style=flat-square)](LICENSE)
@@ -229,6 +229,9 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
 - 如果目标机器缺少 Windows 字体，模板会回退到 TeX Live 自带的
   Fandol 和 TeX Gyre 字体，保证可以编译；正式提交前仍应在学校指定
   字体环境中核对版式。
+- 中文字体由模板在每轮 XeLaTeX 中统一初始化一次，不再先加载 CTeX
+  默认字体后重复覆盖；字体探测结果在同一轮中复用。该优化不改变
+  学生的编译操作，也不改变模板选用的字体和最终版式。
 - 公开仓库暂不附带第三方字体文件；确认再分发授权后方可加入发布包。
   字体可从上述官方渠道取得，并按照 `fonts/README.md` 放入本地项目。
 
@@ -257,6 +260,10 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
 
 ## 版本记录
 
+- **v0.2.2（2026-07-27）**：重构 XeLaTeX 字体初始化流程，避免 CTeX
+  默认中文字体与模板字体重复加载，复用西文字体探测结果；保持原有
+  用户命令、字体选择和 PDF 版式不变，降低 Overleaf、CSTCloud 和
+  本地环境中每轮编译的初始化开销。
 - **v0.2.1（2026-07-27）**：补充诚信承诺书和版权使用授权声明的日期
   命令，支持直接填写或留空手写；隐藏声明页签名提示文字，微调封面
   信息栏线条，并补充方正字体的官方获取与本地放置说明；增加 GitHub
