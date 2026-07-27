@@ -207,7 +207,8 @@
   \node[anchor=north,inner sep=0pt,text width=318.5bp,align=center]
     at ([xshift=347.25bp,yshift=-#3]current page.north west)
     {{\heiti\sffamily\fontsize{15bp}{18bp}\selectfont #2}};
-  \draw[line width=0.75bp]
+  % Word renders these form lines as 1.44 pt filled rules.
+  \draw[line width=1.44bp]
     ([xshift=188bp,yshift=-#4]current page.north west) --
     ([xshift=506.5bp,yshift=-#4]current page.north west);
 }
