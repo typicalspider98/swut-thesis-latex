@@ -143,7 +143,6 @@
     {\setCJKfamilyfont{zhkai}[Path={fonts/}]{KaiTiGB2312.ttf}}
     {\setCJKfamilyfont{zhkai}{KaiTi}}
 \else
-  \swut@cjkfontfallbacktrue
   \ifswut@maccjk
     \setCJKmainfont[AutoFakeBold=2.5]{STSong}
     \setCJKsansfont[AutoFakeBold=2.5]{STHeiti}
@@ -156,6 +155,7 @@
       {\setCJKfamilyfont{zhkai}[Path={fonts/}]{KaiTiGB2312.ttf}}
       {\setCJKfamilyfont{zhkai}{Kaiti SC}}
   \else
+    \swut@cjkfontfallbacktrue
     \setCJKmainfont[AutoFakeBold=2.5]{FandolSong-Regular}
     \setCJKsansfont[AutoFakeBold=2.5]{FandolHei-Regular}
     \setCJKmonofont{FandolFang-Regular}
