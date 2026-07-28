@@ -6,7 +6,7 @@
 
 [![Version](https://img.shields.io/badge/version-v0.2.2-1677ff?style=flat-square)](https://gitee.com/typicalspider/swut-thesis-latex/releases)
 [![Engine](https://img.shields.io/badge/engine-XeLaTeX-008080?style=flat-square)](#编译器要求)
-[![Online](https://img.shields.io/badge/online-Overleaf%20%7C%20CSTCloud-2e7d32?style=flat-square)](#快速开始推荐在线使用)
+[![Online](https://img.shields.io/badge/online-CSTCloud-2e7d32?style=flat-square)](#快速开始推荐使用中国科技云)
 [![Code License](https://img.shields.io/badge/code%20license-MIT-f5a623?style=flat-square)](LICENSE)
 
 [完整示例 PDF](main.pdf) ·
@@ -64,7 +64,7 @@ XeLaTeX 对 UTF-8 中文、系统字体及 OpenType/TrueType 字体的支持；
 使用 pdfLaTeX 会直接停止编译。项目中的 `latexmkrc` 已设置为调用
 XeLaTeX 和 Biber，在本地运行 `latexmk main.tex` 即可。
 
-## 快速开始（推荐在线使用）
+## 快速开始（推荐使用中国科技云）
 
 无需在电脑上安装 LaTeX 环境。请先从
 [Gitee 发行版页面](https://gitee.com/typicalspider/swut-thesis-latex/releases)
@@ -73,25 +73,26 @@ XeLaTeX 和 Biber，在本地运行 `latexmk main.tex` 即可。
 下载最新版本的 ZIP 压缩包，然后将 ZIP 直接导入在线 LaTeX 平台。
 不要先解压后逐个上传文件，否则容易遗漏目录或资源文件。
 
-### 使用 Overleaf
-
-1. 登录 [Overleaf](https://www.overleaf.com/)，在项目页面依次选择
-   **New Project → Upload Project**。
-2. 选择下载的模板 ZIP 压缩包并等待导入完成。
-3. 进入项目后，打开左上角的 **Menu**，在 **Compiler** 中选择
-   **XeLaTeX**，不能使用默认的 pdfLaTeX。
-4. 确认主文档为 `main.tex`，然后点击 **Recompile** 完成编译。
-
 ### 使用中国科技云论文协同编辑服务
 
 登录[中国科技云论文协同编辑服务](https://latex.cstcloud.cn/)后，按照
-与 Overleaf 相同的方式上传模板 ZIP。导入后同样需要打开左上角的
-**Menu**，将 **Compiler** 设置为 **XeLaTeX**，主文档设置为
-`main.tex`。该服务可使用微信扫码登录，服务介绍见
+平台提示上传模板 ZIP。导入后打开项目设置，将 **Compiler** 设置为
+**XeLaTeX**，主文档设置为 `main.tex`，然后执行编译。该服务可使用
+微信扫码登录，服务介绍见
 [中国科技云资源页面](https://www1.cstcloud.cn/resources/452)。
 
-两个平台的默认编译器都可能是 pdfLaTeX。首次导入后必须先检查
-**Menu → Compiler**，确认已经选择 **XeLaTeX**，再开始编译。
+在线平台的默认编译器可能是 pdfLaTeX。首次导入后必须先检查项目设置，
+确认已经选择 **XeLaTeX**，再开始编译。
+
+### 关于 Overleaf
+
+本模板原则上可以导入 Overleaf，并仍须选择 XeLaTeX；但完整示例需要
+加载中文字体、参考文献和图表等组件，可能超过 Overleaf 免费计划的
+编译时限。该限制属于平台资源配额，并不表示 LaTeX 源文件存在编译
+错误。需要稳定完成全文编译时，建议优先使用中国科技云或本地环境。
+Overleaf 各计划的编译时限以其
+[官方说明](https://docs.overleaf.com/getting-started/free-and-premium-plans/plan-limits)
+为准。
 
 导入并编译成功后：
 
@@ -110,18 +111,21 @@ XeLaTeX 和 Biber，在本地运行 `latexmk main.tex` 即可。
 
 ## 使用界面
 
-下图分别展示在线平台与本地编辑器中的典型工作界面。图片可点击放大；
-两种方式生成的论文版式一致，选择适合自己的写作环境即可。
+下图展示在线平台与本地编辑器中的典型工作界面。中国科技云论文协同
+编辑服务基于开源版 Overleaf 定制研发，因此界面布局与操作方式基本
+一致。图片可点击放大。
 
 <table>
   <tr>
-    <th width="50%">Overleaf 在线编译</th>
+    <th width="50%">
+      <a href="https://gitee.com/link?target=https%3A%2F%2Flatex.cstcloud.cn%2F">中国科技云论文协同编辑服务（Overleaf）</a>
+    </th>
     <th width="50%">TeXstudio 本地编译</th>
   </tr>
   <tr>
     <td>
       <a href="docs/images/readme/overleaf-workspace.png">
-        <img src="docs/images/readme/overleaf-workspace.png" alt="Overleaf 在线编辑与 PDF 预览界面">
+        <img src="docs/images/readme/overleaf-workspace.png" alt="基于 Overleaf 的在线编辑与 PDF 预览界面">
       </a>
     </td>
     <td>
@@ -131,7 +135,7 @@ XeLaTeX 和 Biber，在本地运行 `latexmk main.tex` 即可。
     </td>
   </tr>
   <tr>
-    <td align="center"><sub>上传发行版 ZIP，选择 XeLaTeX 后即可编译</sub></td>
+    <td align="center"><sub>上传发行版 ZIP，选择 XeLaTeX 后在线编译</sub></td>
     <td align="center"><sub>配合 MiKTeX 完成本地编辑、编译和 PDF 预览</sub></td>
   </tr>
 </table>
@@ -192,8 +196,8 @@ xelatex main.tex
   提供方正粗黑宋简体的授权与官方获取入口。
 
 取得字体后，按照 [`fonts/README.md`](fonts/README.md) 中的文件名放置。
-本地编译时模板会自动读取排版所需的本地字体。Overleaf 或中国科技云
-平台用户可将依法取得的字体上传到自己的私人项目 `fonts/` 目录；
+本地编译时模板会自动读取排版所需的本地字体。中国科技云等在线平台
+的用户可将依法取得的字体上传到自己的私人项目 `fonts/` 目录；
 不要将字体文件提交到公开仓库或可公开访问的在线项目。
 
 Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
@@ -262,8 +266,8 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
 
 - **v0.2.2（2026-07-27）**：重构 XeLaTeX 字体初始化流程，避免 CTeX
   默认中文字体与模板字体重复加载，复用西文字体探测结果；保持原有
-  用户命令、字体选择和 PDF 版式不变，降低 Overleaf、CSTCloud 和
-  本地环境中每轮编译的初始化开销。
+  用户命令、字体选择和 PDF 版式不变，降低在线平台和本地环境中每轮
+  编译的初始化开销。
 - **v0.2.1（2026-07-27）**：补充诚信承诺书和版权使用授权声明的日期
   命令，支持直接填写或留空手写；隐藏声明页签名提示文字，微调封面
   信息栏线条，并补充方正字体的官方获取与本地放置说明；增加 GitHub
