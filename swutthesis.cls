@@ -229,7 +229,6 @@
 \newcommand{\swut@studentid}{}
 \newcommand{\swut@college}{}
 \newcommand{\swut@major}{}
-\newcommand{\swut@supervisor}{}
 \newcommand{\swut@date}{二〇二六年六月}
 \newcommand{\swut@commitmentyear}{}
 \newcommand{\swut@commitmentmonth}{}
@@ -248,7 +247,6 @@
 \newcommand{\studentid}[1]{\gdef\swut@studentid{#1}}
 \newcommand{\college}[1]{\gdef\swut@college{#1}}
 \newcommand{\major}[1]{\gdef\swut@major{#1}}
-\newcommand{\supervisor}[1]{\gdef\swut@supervisor{#1}}
 \newcommand{\coverdate}[1]{\gdef\swut@date{#1}\date{#1}}
 \newcommand{\commitmentdate}[3]{%
   \gdef\swut@commitmentyear{#1}%
@@ -258,6 +256,60 @@
   \gdef\swut@authorizationyear{#1}%
   \gdef\swut@authorizationmonth{#2}%
   \gdef\swut@authorizationday{#3}}
+
+% \supervisor accepts one name or a comma-separated pair. Chinese semicolons
+% and enumeration commas are normalized as separators as a convenience.
+% Two-character names receive one ideographic character of internal spacing;
+% names of any other length are left unchanged.
+\newif\ifswut@twosupervisors
+\ExplSyntaxOn
+\clist_new:N \g_swut_supervisor_clist
+
+\NewDocumentCommand{\supervisor}{m}
+  {
+    \tl_set:Nn \l_tmpa_tl {#1}
+    \tl_replace_all:Nnn \l_tmpa_tl {；} {,}
+    \tl_replace_all:Nnn \l_tmpa_tl {、} {,}
+    \clist_gset:Nx \g_swut_supervisor_clist {\tl_use:N \l_tmpa_tl}
+    \int_compare:nNnTF
+      {\clist_count:N \g_swut_supervisor_clist} > {1}
+      {\global\swut@twosupervisorstrue}
+      {\global\swut@twosupervisorsfalse}
+    \int_compare:nNnT
+      {\clist_count:N \g_swut_supervisor_clist} > {2}
+      {
+        \ClassWarning{swutthesis}
+          {More~than~two~supervisors~were~provided;
+           ~the~cover~is~designed~for~at~most~two}
+      }
+  }
+
+\cs_new_protected:Npn \swut_format_supervisor_name:n #1
+  {
+    \tl_set:Nn \l_tmpa_tl {#1}
+    \tl_trim_spaces:N \l_tmpa_tl
+    \regex_replace_all:nnN {\s+} {} \l_tmpa_tl
+    \int_compare:nNnTF {\tl_count:N \l_tmpa_tl} = {2}
+      {
+        \tl_item:Nn \l_tmpa_tl {1}
+        \hspace{1em}
+        \tl_item:Nn \l_tmpa_tl {2}
+      }
+      {\tl_use:N \l_tmpa_tl}
+  }
+
+\NewDocumentCommand{\swutformatsupervisors}{}
+  {
+    \bool_set_true:N \l_tmpa_bool
+    \clist_map_inline:Nn \g_swut_supervisor_clist
+      {
+        \bool_if:NTF \l_tmpa_bool
+          {\bool_set_false:N \l_tmpa_bool}
+          {\\}
+        \swut_format_supervisor_name:n {##1}
+      }
+  }
+\ExplSyntaxOff
 
 % ----------------------------------------------------------------------------
 % 5. Cover and declaration pages
@@ -338,7 +390,12 @@
       \swut@coverrow{学\hspace{18bp}号：}{\swut@studentid}{507.50bp}{536.50bp}
       \swut@coverrow{学\hspace{18bp}院：}{\swut@college}{546.00bp}{575.00bp}
       \swut@coverrow{专\hspace{18bp}业：}{\swut@major}{584.50bp}{613.50bp}
-      \swut@coverrow{指导教师：}{\swut@supervisor}{623.00bp}{652.00bp}
+      \ifswut@twosupervisors
+        % Allow a full 18 bp second line plus the visual gap above the rule.
+        \swut@coverrow{指导教师：}{\swutformatsupervisors}{623.00bp}{662.00bp}
+      \else
+        \swut@coverrow{指导教师：}{\swutformatsupervisors}{623.00bp}{652.00bp}
+      \fi
 
       \node[anchor=north,inner sep=0pt]
         at ([yshift=-742.50bp]current page.north)
@@ -726,6 +783,9 @@
 
 \newcommand{\swuttableofcontents}{%
   \clearpage
+  % The contents form an independent front-matter sequence and therefore
+  % restart at roman page i; subsequent figure/table lists continue from it.
+  \setcounter{page}{1}
   \pagestyle{swut-front}
   \swut@setfrontplain
   {\setstretch{1}\songti\rmfamily\fontsize{12bp}{18bp}\selectfont

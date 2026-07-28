@@ -43,7 +43,7 @@ PDF”。学生只需使用本章介绍的少量命令组织标题、段落、�
 \studentid{学号}
 \college{学院名称}
 \major{专业名称}
-\supervisor{指导教师}
+\supervisor{李明,王小华}
 \coverdate{二〇二六年六月}
 
 \commitmentdate{2026}{6}{20}
@@ -53,6 +53,9 @@ PDF”。学生只需使用本章介绍的少量命令组织标题、段落、�
 \verb|\thesistitle| 中填写不换行的完整题目，用于页眉和 PDF 信息。
 封面需要换成两行时，在 \verb|\coverthesistitle| 中使用一次
 \verb|\\|。没有副标题时，删除或注释 \verb|\thesissubtitle| 所在行。
+一位指导教师直接填写姓名；有两位指导教师时，在
+\verb|\supervisor| 中使用英文逗号分隔，模板会自动将两人上下排列。
+两字姓名会自动空开一个汉字宽度，三字姓名不增加字间距。
 \verb|\commitmentdate{年}{月}{日}| 和
 \verb|\authorizationdate{年}{月}{日}| 分别填写诚信承诺书与版权使用
 授权声明的日期。如需在打印后手写日期，可将对应命令写为
