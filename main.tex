@@ -14,14 +14,14 @@
 % 2. 论文基本信息（请替换花括号中的示例内容）
 % ============================================================================
 % 完整题目：用于页眉、PDF 书签和文档元数据，不要在这里手工换行。
-\thesistitle{中文本科论文高质量排版研究}
+\thesistitle{本科毕业论文规范写作示例}
 
 % 封面主标题：只控制封面上的换行，不会改变页眉中的完整题目。
 % 本示例特意写出“主标题示例”，便于从 PDF 中识别前两行的元素类型。
-\coverthesistitle{主标题示例：中文本科论文\\高质量排版研究}
+\coverthesistitle{主标题示例：本科毕业论文\\规范写作示例}
 
 % 可选副标题：显示为封面题目区的第三行；没有副标题时删除或注释此行。
-\thesissubtitle{副标题示例：以模板工程为例}
+\thesissubtitle{副标题示例：以某高校为例}
 
 \studentname{张三}
 \studentid{2026000000}
@@ -48,49 +48,50 @@
 % 中文摘要
 % ----------------------------------------------------------------------------
 \begin{cnabstract}
-本文以山东外国语职业技术大学本科毕业设计（论文）格式规范为研究
-对象，围绕中文学位论文排版中页面参数分散、字体配置复杂、格式调整
-重复以及跨平台编译结果不一致等问题，设计并实现一套基于 XeLaTeX
-的本科毕业论文模板。研究首先从学校发布的 Word 模板中提取纸张、
-页面结构、标题层级、页眉页脚、图表公式和参考文献等版式规则，并将
-其转化为可复用的文档类命令；随后利用
-\texttt{ctex}、\texttt{fontspec} 和 \texttt{biblatex} 等宏包完成
-中文字体、自动编号、交叉引用和顺序编码制参考文献的统一控制；最后
-通过封面、声明、中英文摘要、目录、多级标题、图表、公式、脚注、
-程序代码、参考文献、致谢和附录等完整示例验证模板。测试结果表明，
-该模板能够在内容与格式分离的前提下稳定生成符合学校规范的论文
-文档，减少学生重复设置格式的工作量，并提高论文排版的一致性、
-可维护性和可复现性。
-\cnkeywords{毕业论文；LaTeX；中文排版；模板工程}
+摘要应是一篇能够独立阅读的内容概括。在不依赖正文、图表和注释的
+情况下，依次交代毕业设计（论文）的研究目的、研究对象或核心问题、
+采用的方法与实施过程、获得的主要结果、形成的结论，以及具有价值
+的创新或实践贡献。开头可用一至两句话说明研究要解决的问题及其
+意义，随后说明数据、材料、技术路线或分析方法，再用准确的定量或
+定性表述给出最重要的发现，最后概括结论、适用范围和必要的限制。
+若研究包含多项结果，应按照重要程度组织，而不是照搬正文目录逐项
+罗列。摘要不宜写成长篇背景介绍，不引用参考文献，不使用图表、公式
+和脚注，也不写“本文将在”等尚未完成的计划性表述。语言应客观、
+凝练、完整，避免空泛评价、宣传性措辞和无法验证的绝对化结论。
+中文摘要一般以三百至五百字为宜，并与正文结论及英文摘要保持一致。
+完成全文后，应再次核对摘要中的研究对象、样本数量、关键数据和主要
+结论，确保读者仅阅读摘要即可理解论文研究了什么、怎样开展研究、
+得到了什么结果，以及这些结果具有什么理论意义或实践价值。
+\cnkeywords{研究目的；研究方法；研究结果；主要结论}
 \end{cnabstract}
 
 % ----------------------------------------------------------------------------
 % 英文摘要
 % ----------------------------------------------------------------------------
 \begin{enabstract}
-This study develops a XeLaTeX template for undergraduate theses at Shandong
-Vocational University of Foreign Affairs. It addresses recurring problems in
-Chinese thesis preparation, including scattered page settings, complicated
-font configuration, repeated manual formatting, and inconsistent output
-across computers. The formatting requirements are first extracted from the
-official Word template, covering page structure, heading levels, running
-headers, page numbers, figures, tables, equations, citations, and references.
-These requirements are then converted into reusable class commands. The
-implementation combines CTeX and fontspec for Chinese and Western typography,
-while biblatex is used for references in the sequential numbering style.
-Automatic numbering and cross-references are provided for chapters, sections,
-figures, tables, equations, footnotes, and appendices. A complete sample
-document is constructed to test the cover, declarations, Chinese and English
-abstracts, table of contents, list of figures and tables, multilevel headings,
-mathematical expressions, source code, bibliography, acknowledgements, and
-appendices. Compilation tests show that the template produces stable documents
-that follow the university's formatting rules while separating content from
-presentation. It reduces repetitive formatting work, improves consistency
-among student submissions, and makes later revisions easier to maintain. The
-resulting project can therefore serve both as a writing template and as a
-practical reference for students who are learning structured academic
-typesetting.
-\enkeywords{undergraduate thesis; LaTeX; Chinese typesetting; template engineering}
+An abstract should provide a self-contained account of the graduation project
+or thesis. Without requiring the reader to consult the main text, figures, or
+notes, it should state the research objective, the object or central question,
+the methods and procedures, the principal results, the conclusions, and any
+meaningful theoretical or practical contribution. The opening sentences may
+identify the problem and explain why it deserves investigation. The following
+sentences should describe the data, materials, technical route, experiment, or
+analytical method used in the study. The most important findings should then
+be reported with precise quantitative or qualitative evidence, followed by a
+concise conclusion and, where necessary, the scope and limitations of the
+result. If several findings are presented, they should be ordered by
+importance instead of repeating the chapter sequence. The abstract should not
+become an extended literature review, cite references, or contain figures,
+tables, formulas, and footnotes. It should also avoid promises such as “this
+study will” after the research has been completed. Objective and verifiable
+language is preferred to promotional claims or unsupported superlatives. An
+English abstract of approximately 200 to 300 words is recommended and should
+correspond to the Chinese abstract in research content and conclusions. After
+the full thesis has been revised, the author should verify the research object,
+sample size, key data, and conclusions stated in both abstracts so that a
+reader can understand what was studied, how the work was conducted, what was
+found, and why the findings matter.
+\enkeywords{research objective; research method; research result; main conclusion}
 \end{enabstract}
 
 % 目录及图表清单均由章节、图题和表题自动生成。
@@ -101,8 +102,8 @@ typesetting.
 % 4. 正文
 % ============================================================================
 \mainmatter
-\include{chapters/introduction}
 \include{chapters/latex-quickstart}
+\include{chapters/introduction}
 \include{chapters/typesetting}
 \include{chapters/academic-writing}
 \include{chapters/headings-and-contents}

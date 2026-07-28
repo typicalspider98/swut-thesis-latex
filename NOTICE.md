@@ -13,12 +13,13 @@ the following materials:
 - third-party font files.
 
 The University name, logo, handwritten name, and related visual identity
-elements are owned by Shandong Vocational University of Foreign Affairs or
-their respective rights holders.
+elements are owned by Shandong Vocational and Technical University of
+International Studies or their respective rights holders.
 
 These University marks are included solely for preparing undergraduate
-graduation projects and theses at Shandong Vocational University of Foreign
-Affairs and for demonstrating the typesetting produced by this template.
+graduation projects and theses at Shandong Vocational and Technical University
+of International Studies and for demonstrating the typesetting produced by
+this template.
 
 The University marks may be redistributed in their original, unmodified form
 only as part of this template. They may also be embedded in thesis documents
@@ -41,8 +42,8 @@ trademark, branding, publicity, or other rights in the University name, logo,
 marks, or visual identity.
 
 For questions regarding use of the University marks beyond the purposes
-described above, please contact Shandong Vocational University of Foreign
-Affairs or the appropriate rights holder.
+described above, please contact Shandong Vocational and Technical University
+of International Studies or the appropriate rights holder.
 
 
 # 学校标识与第三方资源声明

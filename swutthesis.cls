@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{swutthesis}[2026/07/27 v0.2.2 SWUT undergraduate thesis class]
+\ProvidesClass{swutthesis}[2026/07/28 v0.2.3 SWUT undergraduate thesis class]
 
 % ============================================================================
 % Internal implementation of the SWUT undergraduate thesis template.
@@ -85,9 +85,13 @@
 % metrically compatible TeX Live fonts.  Cache the Times New Roman probe
 % because the same decision is reused for the page-number family.
 \newif\ifswut@hastimesnewroman
+\newif\ifswut@westernfontfallback
 \IfFontExistsTF{Times New Roman}
   {\swut@hastimesnewromantrue}
-  {\swut@hastimesnewromanfalse}
+  {
+    \swut@hastimesnewromanfalse
+    \swut@westernfontfallbacktrue
+  }
 \ifswut@hastimesnewroman
   \setmainfont{Times New Roman}
 \else
@@ -95,7 +99,10 @@
 \fi
 \IfFontExistsTF{Arial}
   {\setsansfont{Arial}}
-  {\setsansfont{TeX Gyre Heros}}
+  {
+    \setsansfont{TeX Gyre Heros}
+    \swut@westernfontfallbacktrue
+  }
 \IfFontExistsTF{Courier New}
   {\setmonofont{Courier New}}
   {\setmonofont{TeX Gyre Cursor}}
@@ -113,6 +120,7 @@
 % selects the macOS set, and TeX Live's Fandol set is the portable fallback.
 \newif\ifswut@windowscjk
 \newif\ifswut@maccjk
+\newif\ifswut@cjkfontfallback
 \IfFontExistsTF{SimSun}
   {\swut@windowscjktrue}
   {
@@ -125,35 +133,58 @@
   \setCJKmainfont[AutoFakeBold=2.5]{SimSun}
   \setCJKsansfont[AutoFakeBold=2.5]{SimHei}
   \setCJKmonofont{FangSong}
-  \setCJKfamilyfont{zhfs}{FangSong}
-  \setCJKfamilyfont{zhkai}{KaiTi}
+  \newCJKfontfamily\swutheaderfont[Scale=1]{SimSun}
+  \IfFileExists{fonts/FangSongGB2312.ttf}
+    {\setCJKfamilyfont{zhfs}[Path={fonts/}]{FangSongGB2312.ttf}}
+    {\setCJKfamilyfont{zhfs}{FangSong}}
+  \IfFileExists{fonts/KaiTiGB2312.ttf}
+    {\setCJKfamilyfont{zhkai}[Path={fonts/}]{KaiTiGB2312.ttf}}
+    {\setCJKfamilyfont{zhkai}{KaiTi}}
 \else
+  \swut@cjkfontfallbacktrue
   \ifswut@maccjk
     \setCJKmainfont[AutoFakeBold=2.5]{STSong}
     \setCJKsansfont[AutoFakeBold=2.5]{STHeiti}
     \setCJKmonofont{STFangsong}
-    \setCJKfamilyfont{zhfs}{STFangsong}
-    \setCJKfamilyfont{zhkai}{Kaiti SC}
+    \newCJKfontfamily\swutheaderfont[Scale=1]{STSong}
+    \IfFileExists{fonts/FangSongGB2312.ttf}
+      {\setCJKfamilyfont{zhfs}[Path={fonts/}]{FangSongGB2312.ttf}}
+      {\setCJKfamilyfont{zhfs}{STFangsong}}
+    \IfFileExists{fonts/KaiTiGB2312.ttf}
+      {\setCJKfamilyfont{zhkai}[Path={fonts/}]{KaiTiGB2312.ttf}}
+      {\setCJKfamilyfont{zhkai}{Kaiti SC}}
   \else
     \setCJKmainfont[AutoFakeBold=2.5]{FandolSong-Regular}
     \setCJKsansfont[AutoFakeBold=2.5]{FandolHei-Regular}
     \setCJKmonofont{FandolFang-Regular}
-    \setCJKfamilyfont{zhfs}{FandolFang-Regular}
-    \setCJKfamilyfont{zhkai}{FandolKai-Regular}
+    \newCJKfontfamily\swutheaderfont[Scale=1]{FandolSong-Regular}
+    \IfFileExists{fonts/FangSongGB2312.ttf}
+      {\setCJKfamilyfont{zhfs}[Path={fonts/}]{FangSongGB2312.ttf}}
+      {\setCJKfamilyfont{zhfs}{FandolFang-Regular}}
+    \IfFileExists{fonts/KaiTiGB2312.ttf}
+      {\setCJKfamilyfont{zhkai}[Path={fonts/}]{KaiTiGB2312.ttf}}
+      {\setCJKfamilyfont{zhkai}{FandolKai-Regular}}
   \fi
 \fi
 \providecommand{\songti}{\CJKfamily{\CJKrmdefault}}
 \providecommand{\heiti}{\CJKfamily{\CJKsfdefault}}
 \providecommand{\fangsong}{\CJKfamily{zhfs}}
 \providecommand{\kaishu}{\CJKfamily{zhkai}}
-% The two supplied Founder fonts are loaded from the project without requiring
-% installation. ASCII aliases avoid non-ASCII path issues in XeTeX on Windows.
+% The Founder title font is loaded directly from the private project without
+% installation. If it is missing, compilation continues but the PDF carries a
+% visible reminder so a fallback-font draft is not submitted accidentally.
+\newif\ifswut@schoolfontfallback
 \IfFileExists{fonts/FZXBS.ttf}
-  {\newCJKfontfamily\swutschoolfont[Path={fonts/},Scale=1]{FZXBS.ttf}}
-  {\newcommand{\swutschoolfont}{\songti}}
-\IfFileExists{fonts/FZCHSJ.ttf}
-  {\newCJKfontfamily\swutcoverfont[Path={fonts/}]{FZCHSJ.ttf}}
-  {\newcommand{\swutcoverfont}{\heiti}}
+  {
+    \swut@schoolfontfallbackfalse
+    \newCJKfontfamily\swutschoolfont[Path={fonts/},Scale=1]{FZXBS.ttf}
+  }
+  {
+    \swut@schoolfontfallbacktrue
+    \newcommand{\swutschoolfont}{\songti}
+    \ClassWarningNoLine{swutthesis}
+      {FZXBS.ttf not found; the fixed cover heading uses a fallback font}
+  }
 
 % ----------------------------------------------------------------------------
 % 3. PDF options and document-wide paragraph defaults
@@ -271,6 +302,14 @@
         at ([xshift=30bp,yshift=-211.00bp]current page.north)
         {{\swutschoolfont\fontsize{36bp}{43.2bp}\selectfont
           \swut@coverheading}};
+      \ifswut@schoolfontfallback
+        \node[anchor=north,inner sep=0pt,text=red!80!black]
+          at ([yshift=-258bp]current page.north)
+          {{\songti\rmfamily\fontsize{8.5bp}{10.5bp}\selectfont
+            字体提示：当前未检测到方正小标宋简体，以上标题已使用宋体回退；
+            请将合法取得的 \texttt{FZXBS.ttf} 放入 \texttt{fonts/}
+            文件夹后重新编译。}};
+      \fi
 
       \node[anchor=north west,inner sep=0pt]
         at ([xshift=76.50bp,yshift=-337.00bp]current page.north west)
@@ -304,6 +343,20 @@
       \node[anchor=north,inner sep=0pt]
         at ([yshift=-742.50bp]current page.north)
         {{\heiti\sffamily\fontsize{15bp}{22.5bp}\selectfont\swut@date}};
+      \ifswut@cjkfontfallback
+        \node[anchor=north,inner sep=0pt,text=red!80!black]
+          at ([yshift=-779bp]current page.north)
+          {{\songti\rmfamily\fontsize{8.5bp}{10.5bp}\selectfont
+            字体提示：未检测到学校版式使用的宋体、黑体等 Windows 中文字体，
+            当前已使用系统或 Fandol 字体回退。}};
+      \fi
+      \ifswut@westernfontfallback
+        \node[anchor=north,inner sep=0pt,text=red!80!black]
+          at ([yshift=-792bp]current page.north)
+          {{\songti\rmfamily\fontsize{8.5bp}{10.5bp}\selectfont
+            字体提示：未检测到 Times New Roman 或 Arial，
+            当前西文已使用 TeX Gyre 字体回退。}};
+      \fi
     \end{tikzpicture}
     \null
   \end{titlepage}
@@ -408,6 +461,12 @@
 % title in the running header.
 \newcommand{\swut@pagenumber}{%
   \swutpagefont\fontsize{10.5bp}{10.5bp}\selectfont\thepage}
+\newcommand{\swut@runningheader}{%
+  \begingroup
+  \setstretch{1}%
+  \rmfamily\swutheaderfont\fontsize{10.5bp}{10.5bp}\selectfont
+  \swut@title
+  \endgroup}
 
 \fancypagestyle{swut-front}{%
   \fancyhf{}
@@ -417,7 +476,7 @@
 
 \fancypagestyle{swut-main}{%
   \fancyhf{}
-  \fancyhead[C]{\songti\rmfamily\zihao{5}\swut@title}
+  \fancyhead[C]{\swut@runningheader}
   \fancyfoot[C]{\swut@pagenumber}
   \renewcommand{\headrulewidth}{0.4pt}
 }
@@ -434,7 +493,7 @@
 \newcommand{\swut@setmainplain}{%
   \fancypagestyle{plain}{%
     \fancyhf{}
-    \fancyhead[C]{\songti\rmfamily\zihao{5}\swut@title}
+    \fancyhead[C]{\swut@runningheader}
     \fancyfoot[C]{\swut@pagenumber}
     \renewcommand{\headrulewidth}{0.4pt}
   }%

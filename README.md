@@ -4,7 +4,7 @@
 
 **面向全校本科生的中文毕业设计（论文）排版模板**
 
-[![Version](https://img.shields.io/badge/version-v0.2.2-1677ff?style=flat-square)](https://gitee.com/typicalspider/swut-thesis-latex/releases)
+[![Version](https://img.shields.io/badge/version-v0.2.3-1677ff?style=flat-square)](https://gitee.com/typicalspider/swut-thesis-latex/releases)
 [![Engine](https://img.shields.io/badge/engine-XeLaTeX-008080?style=flat-square)](#编译器要求)
 [![Online](https://img.shields.io/badge/online-CSTCloud-2e7d32?style=flat-square)](#快速开始推荐使用中国科技云)
 [![Code License](https://img.shields.io/badge/code%20license-MIT-f5a623?style=flat-square)](LICENSE)
@@ -20,6 +20,9 @@
 为排版规范来源，面向中文本科毕业设计（论文）。模板统一处理封面、
 声明、摘要、目录、正文、图表、参考文献、致谢和附录等版式，使用者
 主要填写论文信息与内容，无需逐项手工调整字体、字号和行距。
+
+学校 Word 原始模板只用于开发校对，不纳入公开 Git 仓库和发行包；
+公开项目保留依据该文件整理的格式基线和自主编写的 LaTeX 实现。
 
 ## 模板预览
 
@@ -62,7 +65,8 @@
 **本模板必须使用 XeLaTeX 编译，不能使用 pdfLaTeX。** 模板依赖
 XeLaTeX 对 UTF-8 中文、系统字体及 OpenType/TrueType 字体的支持；
 使用 pdfLaTeX 会直接停止编译。项目中的 `latexmkrc` 已设置为调用
-XeLaTeX 和 Biber，在本地运行 `latexmk main.tex` 即可。
+XeLaTeX 和 Biber。系统已安装 `latexmk` 时，可在本地运行
+`latexmk main.tex`；未安装时使用下文列出的四步手动编译流程。
 
 ## 快速开始（推荐使用中国科技云）
 
@@ -106,8 +110,8 @@ Overleaf 各计划的编译时限以其
    参数留空即可。
    示例 PDF 中已直接标注“主标题示例”和“副标题示例”，便于辨认。
 2. 在 `chapters/` 中撰写正文，在 `references.bib` 中维护参考文献。
-   第二章“模板快速上手”说明了新建章节、正文分段、插图、引用和
-   编译的推荐写法。
+   第一章“模板快速上手”说明了新建章节、正文分段、插图、引用和
+   编译的推荐写法；正式提交论文时可删除该教程章。
 
 ## 使用界面
 
@@ -165,13 +169,15 @@ MiKTeX，再安装 TeXstudio。
    参考文献工具设为 **Biber**。
 4. 使用 TeXstudio 打开项目根目录中的 `main.tex`，然后执行构建。
 
-也可以在项目根目录通过命令行完成编译：
+如果已经安装并配置好 `latexmk`，也可以在项目根目录通过命令行
+完成自动编译：
 
 ```powershell
 latexmk main.tex
 ```
 
-如需手动编译，可依次运行：
+部分 MiKTeX Basic 环境没有预装可直接使用的 `latexmk`。此时可依次
+运行以下命令，编译结果与自动流程一致：
 
 ```powershell
 xelatex main.tex
@@ -188,12 +194,10 @@ xelatex main.tex
 请从字体厂商官方渠道取得字体，并将文件放入项目的 `fonts/` 目录。
 
 - [方正公文写作个人（家庭）版](https://shop.foundertype.com/index.php/AuthOffice/index.html)
-  包含方正小标宋简体、黑体、仿宋_GB2312 和楷体_GB2312，适用于个人
+  包含方正小标宋简体、仿宋_GB2312 和楷体_GB2312，适用于个人
   非商业的文档编辑、显示和打印。
 - [方正小标宋官方字体页面](https://www.foundertype.com/index.php/FontInfo/index/id/164)
   提供字体介绍、个人非商业授权说明和官方获取入口。
-- [方正粗黑宋官方字体页面](https://www.foundertype.com/index.php/FontInfo/index/id/195)
-  提供方正粗黑宋简体的授权与官方获取入口。
 
 取得字体后，按照 [`fonts/README.md`](fonts/README.md) 中的文件名放置。
 本地编译时模板会自动读取排版所需的本地字体。中国科技云等在线平台
@@ -205,6 +209,12 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
 和 [KaiTi](https://learn.microsoft.com/en-us/typography/font-list/kaiti)
 页面。系统字体与旧版 `_GB2312` 文件并非同一个字体文件，模板会根据
 实际可用字体自动选择或回退。
+
+当 `FZXBS.ttf` 缺失时，模板仍会生成 PDF，但会在封面固定标题下方
+显示红色字体提示，明确指出当前使用了回退字体以及应放入
+`fonts/` 目录的文件名。缺少学校版式使用的中西文字体时，封面底部
+也会显示相应提示。字体补齐并重新编译后，这些提示会自动消失，避免
+误将使用回退字体的草稿作为正式论文提交。
 
 ## 已实现的版式与功能
 
@@ -225,14 +235,14 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
   越过它们提前排版，保证最终 PDF 与源文件的阅读顺序一致。
 - 致谢标题中保留两个汉字宽度的间隔，致谢正文与普通正文采用相同的
   字体、行距和首行缩进；附录标题沿用一级标题格式。
-- 示例工程已扩展为六章，其中第二章提供当前模板的快速上手说明，
-  并包含学术写作、图表、公式、脚注、程序代码、结构化标题、
-  参考文献、致谢和附录等完整内容。
+- 示例工程包含六章：第一章提供模板快速上手说明，后续章节依照
+  绪论、研究设计、结果表达、讨论和总结的论文写作逻辑给出内容建议，
+  并演示图表、公式、脚注、程序代码、参考文献、致谢和附录。
 - “毕业设计（论文）”在本地提供相应字体时使用 Word 原模板指定的
-  方正小标宋简体 36 磅，否则自动使用黑体回退字体。
+  方正小标宋简体 36 磅，否则使用宋体回退并在 PDF 中显示提醒。
 - 如果目标机器缺少 Windows 字体，模板会回退到 TeX Live 自带的
-  Fandol 和 TeX Gyre 字体，保证可以编译；正式提交前仍应在学校指定
-  字体环境中核对版式。
+  Fandol 和 TeX Gyre 字体并显示提醒，保证草稿仍可编译；正式提交前
+  应补齐字体并在学校指定环境中核对版式。
 - 中文字体由模板在每轮 XeLaTeX 中统一初始化一次，不再先加载 CTeX
   默认字体后重复覆盖；字体探测结果在同一轮中复用。该优化不改变
   学生的编译操作，也不改变模板选用的字体和最终版式。
@@ -254,7 +264,9 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
 .
 ├─ assets/                  校徽等资源
 ├─ chapters/                正文章节
+├─ docs/images/readme/      README 使用的模板与编辑界面预览图
 ├─ fonts/                   可选字体的放置说明（公开仓库不附字体文件）
+├─ .gitignore               编译产物、私有字体与校内原稿的忽略规则
 ├─ swutthesis.cls           模板类文件
 ├─ main.tex                 完整示例
 ├─ references.bib           参考文献数据库
@@ -264,6 +276,11 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
 
 ## 版本记录
 
+- **v0.2.3（2026-07-28）**：更正学校英文名称；将快速上手调整为第一章，
+  依据学校 Word 模板重写中英文摘要和正文写作提示；增加字体回退的
+  PDF 可见提醒，统一页眉为宋体五号、单倍行距；补充 MiKTeX 手动编译
+  流程；公开仓库移除学校 Word 原始模板，并完善发行 ZIP 中的 README
+  图片和忽略规则。
 - **v0.2.2（2026-07-27）**：重构 XeLaTeX 字体初始化流程，避免 CTeX
   默认中文字体与模板字体重复加载，复用西文字体探测结果；保持原有
   用户命令、字体选择和 PDF 版式不变，降低在线平台和本地环境中每轮
