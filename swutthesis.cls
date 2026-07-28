@@ -24,16 +24,18 @@
 \geometry{
   a4paper,
   top=2.5cm,
-  bottom=2.0cm,
+  % Word records a 2 cm bottom margin, but its line layout leaves the final
+  % body line above that boundary. Reserve a small visible safety strip so
+  % text and shaded code blocks cannot approach the page number too closely.
+  bottom=2.3cm,
   inner=2.0cm,
   outer=2.0cm,
   bindingoffset=0.5cm,
   headheight=15pt,
   headsep=0.35cm,
-  % Word's 1.5 cm footer setting measures from the paper edge to the footer
-  % baseline.  With a 2 cm LaTeX bottom margin, the equivalent footskip is
-  % about 0.44 cm (text-area bottom to footer baseline).
-  footskip=0.44cm
+  % Keep the page-number baseline at Word's original 1.5 cm from the paper
+  % edge after adding the 0.3 cm body safety strip above it.
+  footskip=0.74cm
 }
 
 % Fonts and graphics
@@ -207,11 +209,21 @@
 % Lists use the body baseline without an additional blank strip between items.
 % Keep the normal top/bottom separation so a list remains distinct from prose.
 \setlist[enumerate,itemize]{
+  topsep=0pt,
   itemsep=0pt,
   parsep=0pt,
   partopsep=0pt
 }
-\setcounter{secnumdepth}{4}
+\setlist[enumerate,1]{
+  label=（\arabic*）,
+  labelindent=2em,
+  leftmargin=*,
+  labelsep=0.5em,
+  align=left
+}
+% The school specification ends at the third heading level
+% (chapter, section and subsection). Parenthesized numbers belong to lists.
+\setcounter{secnumdepth}{2}
 \setcounter{tocdepth}{2}
 \emergencystretch=2em
 \raggedbottom
@@ -527,12 +539,16 @@
 
 \fancypagestyle{swut-front}{%
   \fancyhf{}
+  % Extend into the binding offset so the footer is centered on the paper,
+  % rather than alternately following the shifted odd/even text blocks.
+  \fancyfootoffset[LO,RE]{0.5cm}
   \renewcommand{\headrulewidth}{0pt}
   \fancyfoot[C]{\swut@pagenumber}
 }
 
 \fancypagestyle{swut-main}{%
   \fancyhf{}
+  \fancyfootoffset[LO,RE]{0.5cm}
   \fancyhead[C]{\swut@runningheader}
   \fancyfoot[C]{\swut@pagenumber}
   \renewcommand{\headrulewidth}{0.4pt}
@@ -542,6 +558,7 @@
 \newcommand{\swut@setfrontplain}{%
   \fancypagestyle{plain}{%
     \fancyhf{}
+    \fancyfootoffset[LO,RE]{0.5cm}
     \renewcommand{\headrulewidth}{0pt}
     \fancyfoot[C]{\swut@pagenumber}
   }%
@@ -550,6 +567,7 @@
 \newcommand{\swut@setmainplain}{%
   \fancypagestyle{plain}{%
     \fancyhf{}
+    \fancyfootoffset[LO,RE]{0.5cm}
     \fancyhead[C]{\swut@runningheader}
     \fancyfoot[C]{\swut@pagenumber}
     \renewcommand{\headrulewidth}{0.4pt}
@@ -616,9 +634,10 @@
     aftername = \swut@headingnumberseparator,
     format = \setstretch{1}\heiti\sffamily
       \fontsize{14bp}{21bp}\selectfont,
-    beforeskip = 0pt,
+    % The measured upper gap was about 4 bp narrower than the lower gap.
+    beforeskip = 4bp,
     % Fine adjustment from the rendered Word/PDF title-to-body comparison.
-    aftertitle = \par\vspace{0.95bp},
+    aftertitle = \par\nobreak\vspace{0.95bp}\nobreak,
     afterskip = 0pt,
     afterindent = true
   },
@@ -626,17 +645,10 @@
     aftername = \swut@headingnumberseparator,
     format = \setstretch{1}\heiti\sffamily
       \fontsize{12bp}{18bp}\selectfont,
-    beforeskip = 0pt,
+    % Keep the title one normal body-line step away on both sides.
+    beforeskip = 4bp,
     % Match the measured 10.1 bp visible gap before body text.
-    aftertitle = \par\vspace{-1.29bp},
-    afterskip = 0pt,
-    afterindent = true
-  },
-  subsubsection = {
-    aftername = \swut@headingnumberseparator,
-    format = \setstretch{1}\songti
-      \fontsize{12bp}{18bp}\selectfont,
-    beforeskip = 0pt,
+    aftertitle = \par\nobreak\vspace{-1.29bp}\nobreak,
     afterskip = 0pt,
     afterindent = true
   },
@@ -656,13 +668,12 @@
   appendixname = {附录}
 }
 % LaTeX suppresses a subsection's normal beforeskip when it immediately
-% follows another heading. Restore the measured Word gap in that case only.
+% follows another heading. Restore the same body-line gap in that case only.
 \pretocmd{\subsection}{%
-  \if@nobreak\vspace{4.77bp}\fi
+  \if@nobreak\vspace{4bp}\fi
 }{}{%
   \ClassWarning{swutthesis}{Unable to patch adjacent subsection spacing}%
 }
-\renewcommand{\thesubsubsection}{（\arabic{subsubsection}）}
 
 % ----------------------------------------------------------------------------
 % 8. Abstracts, keywords, contents and lists
@@ -776,10 +787,33 @@
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 \renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+% Continue the dotted leader through the normally empty part of tocloft's
+% fixed-width page-number box. This keeps the last dot close to one-, two-,
+% and three-digit page numbers while preserving a shared right edge.
+\newcommand{\swut@tocpagebox}[2]{%
+  \makebox[\@pnumwidth][r]{%
+    \cftdotfill{\cftdotsep}\nobreak#1#2}}
+\renewcommand{\cftchapfillnum}[1]{%
+  {\cftchapleader}\nobreak
+  \swut@tocpagebox{\cftchappagefont}{#1}\cftchapafterpnum\par}
+\renewcommand{\cftsecfillnum}[1]{%
+  {\cftsecleader}\nobreak
+  \swut@tocpagebox{\cftsecpagefont}{#1}\cftsecafterpnum\par}
+\renewcommand{\cftsubsecfillnum}[1]{%
+  {\cftsubsecleader}\nobreak
+  \swut@tocpagebox{\cftsubsecpagefont}{#1}\cftsubsecafterpnum\par}
+\renewcommand{\cftfigfillnum}[1]{%
+  {\cftfigleader}\nobreak
+  \swut@tocpagebox{\cftfigpagefont}{#1}\cftfigafterpnum\par}
+\renewcommand{\cfttabfillnum}[1]{%
+  {\cfttableader}\nobreak
+  \swut@tocpagebox{\cfttabpagefont}{#1}\cfttabafterpnum\par}
 \renewcommand{\cftfigpresnum}{图~}
 \renewcommand{\cfttabpresnum}{表~}
-\setlength{\cftfignumwidth}{3.5em}
-\setlength{\cfttabnumwidth}{3.5em}
+% A single-digit chapter/item number such as "图 4.1" or "表 4.1" is followed
+% by the same approximately 3 bp gap used by numbered headings.
+\setlength{\cftfignumwidth}{2.78em}
+\setlength{\cfttabnumwidth}{2.78em}
 
 \newcommand{\swuttableofcontents}{%
   \clearpage
@@ -818,12 +852,31 @@
   singlelinecheck=true
 }
 \captionsetup[figure]{position=bottom,skip=6pt}
-\captionsetup[table]{position=top,skip=6pt}
+\captionsetup[table]{position=top,skip=0pt}
+\captionsetup[longtable]{position=top,skip=0pt}
 \setlength{\heavyrulewidth}{1.5pt}
 \setlength{\lightrulewidth}{0.75pt}
 \setlength{\cmidrulewidth}{0.75pt}
 \renewcommand{\arraystretch}{1.2}
 \newenvironment{swuttable}{\zihao{5}\singlespacing}{}
+% Full-width three-line table. The stretchable inter-column space keeps the
+% first and last rules aligned with the text block instead of the cell content.
+\newenvironment{swuttabular}[1]{%
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}#1@{}}%
+}{%
+  \end{tabular*}%
+}
+\newenvironment{swutlongtable}[1]{%
+  \begingroup
+  \zihao{5}\singlespacing
+  \begin{longtable}{#1}%
+}{%
+  \end{longtable}
+  \endgroup
+}
+% Use in the repeated longtable head. The empty optional caption prevents a
+% duplicate list-of-tables entry while retaining the original table number.
+\newcommand{\swutcontinuedcaption}[1]{\caption[]{#1（续表）}\\}
 
 % Keep the source order around large objects. If a figure or table does not
 % fit, it moves forward as a whole and later paragraphs cannot overtake it.
@@ -847,16 +900,24 @@
   tabsize=4,
   xleftmargin=0.5em,
   xrightmargin=0.5em,
-  aboveskip=0.35\baselineskip,
-  belowskip=0.35\baselineskip,
-  float=htbp
+  % Pull the listing contents slightly into the float's empty top strip.
+  % The float's lower edge moves by the same amount, so the already-correct
+  % gap below the code block remains unchanged.
+  aboveskip=-0.3\baselineskip,
+  belowskip=0pt,
+  % listings needs both a concrete float initialization and a persistent
+  % default. The order is significant: initialize the float commands first,
+  % then retain that placement for every subsequent listing.
+  floatplacement=htbp,
+  float=htbp,
+  float=true
 }
 % A floating listing otherwise receives both the listing skip and LaTeX's
 % comparatively large generic float separation.  Keep code visually attached
 % to its explanation while retaining the whole-block page-breaking behaviour.
 \AtBeginEnvironment{lstlisting}{%
-  \setlength{\intextsep}{0.35\baselineskip}%
-  \setlength{\textfloatsep}{0.35\baselineskip}%
+  \setlength{\intextsep}{0pt}%
+  \setlength{\textfloatsep}{0pt}%
 }
 \AfterEndEnvironment{lstlisting}{\FloatBarrier}
 
