@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{swutthesis}[2026/07/29 v0.2.8 SWUT undergraduate thesis class]
+\ProvidesClass{swutthesis}[2026/07/29 v0.2.9 SWUT undergraduate thesis class]
 
 % ============================================================================
 % Internal implementation of the SWUT undergraduate thesis template.
@@ -322,7 +322,7 @@
       {
         \bool_if:NTF \l_tmpa_bool
           {\bool_set_false:N \l_tmpa_bool}
-          {\\[-2bp]}
+          {\\[-4bp]}
         \swut_format_supervisor_name:n {##1}
       }
   }
