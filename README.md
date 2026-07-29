@@ -10,8 +10,8 @@
 [![Code License](https://img.shields.io/badge/code%20license-MIT-f5a623?style=flat-square)](LICENSE)
 
 [完整示例 PDF](main.pdf) ·
-[Gitee 发行版](https://gitee.com/typicalspider/swut-thesis-latex/releases) ·
-[GitHub Releases](https://github.com/typicalspider98/swut-thesis-latex/releases)
+[下载 v0.2.10（Gitee）](https://gitee.com/typicalspider/swut-thesis-latex/releases/tag/v0.2.10) ·
+[下载 v0.2.10（GitHub）](https://github.com/typicalspider98/swut-thesis-latex/releases/tag/v0.2.10)
 
 </div>
 
@@ -48,9 +48,9 @@
     </td>
     <td align="center" width="25%">
       <a href="docs/images/readme/preview-figures.png">
-        <img src="docs/images/readme/preview-figures.png" alt="图片、表格和正文排版预览">
+        <img src="docs/images/readme/preview-figures.png" alt="图片和正文排版预览">
       </a>
-      <br><sub>图片、表格与正文</sub>
+      <br><sub>图片与正文</sub>
     </td>
   </tr>
 </table>
@@ -146,6 +146,8 @@ Overleaf 各计划的编译时限以其
 
 ## 本地编译（可选）
 
+### Windows：MiKTeX + TeXstudio
+
 在 Windows 系统中，建议配合 MiKTeX 与 TeXstudio 使用：
 
 - [MiKTeX](https://miktex.org/download) 是 TeX 发行版，提供 XeLaTeX、
@@ -185,6 +187,21 @@ biber main
 xelatex main.tex
 xelatex main.tex
 ```
+
+### macOS：MacTeX + TeXstudio
+
+在 macOS 中，建议安装
+[MacTeX](https://tug.org/mactex/mactex-download.html) 与
+[TeXstudio](https://www.texstudio.org/)。MacTeX 提供完整的 TeX Live、
+XeLaTeX、Biber 和 `latexmk`；TeXstudio 用于编辑、构建和 PDF 预览。
+当前 MacTeX 安装包同时原生支持 Apple 芯片与 Intel 芯片，无需分别
+选择所谓的 “OS X” 或 “OS X M1” 版本。
+
+1. 安装 MacTeX，完成后重新打开终端和 TeXstudio。
+2. 使用 TeXstudio 打开项目根目录中的 `main.tex`。
+3. 在 TeXstudio 构建设置中将默认编译器设为 **XeLaTeX**，将参考文献
+   工具设为 **Biber**。
+4. 执行构建；也可以在项目根目录运行 `latexmk main.tex`。
 
 生成文件为 `main.pdf`。
 
@@ -290,7 +307,9 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
 ## 版本记录
 
 - **v0.2.10（2026-07-29）**：将正文与后续代码段之间的距离恢复为约一行
-  正文行距，避免代码块上方出现过宽留白。
+  正文行距，避免代码块上方出现过宽留白；更新 README 中的最新 PDF
+  预览和发行版下载入口，并补充 macOS 下 MacTeX + TeXstudio 的本地
+  编译说明。
 - **v0.2.9（2026-07-29）**：进一步收紧双指导教师姓名的行距，使第二位
   教师姓名上移并与封面下划线保持更清晰的间隙。
 - **v0.2.8（2026-07-29）**：优化封面信息区的垂直对齐，使学生姓名、
