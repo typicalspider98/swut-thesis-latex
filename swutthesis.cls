@@ -221,7 +221,7 @@
 \setlist[enumerate,1]{
   label=（\arabic*）,
   labelindent=2em,
-  leftmargin=2em,
+  leftmargin=0pt,
   itemindent=*,
   labelsep=0.25em,
   align=left

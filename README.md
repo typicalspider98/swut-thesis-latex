@@ -271,6 +271,23 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
   设置字号、行距、页码、目录点线或编号。
 - 正式提交前，建议在学校指定的字体环境中重新编译并核对最终 PDF。
 
+## Word 论文迁移 Skill
+
+仓库附带 `word2latex` Codex Skill，用于将内容正确但格式混乱的 `.docx`
+论文迁移到本模板。该 Skill 会先清点 Word 中的段落、表格、文本框和
+媒体，再按模板结构迁移，并执行 LaTeX 静态检查、完整编译和 PDF 视觉
+复核。
+
+克隆仓库后，可将 `skills/word2latex` 复制到个人 Codex 技能目录：
+
+```bash
+mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
+cp -R skills/word2latex "${CODEX_HOME:-$HOME/.codex}/skills/"
+```
+
+重新启动 Codex 后，可使用 `$word2latex`，并同时提供 Word 文件、模板
+目录和新建的输出目录。Skill 默认不会直接修改可复用模板。
+
 ## 目录结构
 
 ```text
@@ -279,6 +296,7 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
 ├─ chapters/                正文章节
 ├─ docs/images/readme/      README 使用的模板与编辑界面预览图
 ├─ fonts/                   可选字体的放置说明（公开仓库不附字体文件）
+├─ skills/word2latex/       Word 论文迁移与格式检查 Codex Skill
 ├─ .gitignore               编译产物、私有字体与校内原稿的忽略规则
 ├─ swutthesis.cls           模板类文件
 ├─ main.tex                 完整示例
@@ -294,8 +312,9 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
   物理字号；摘要标题、关键词、正文及页眉页脚不再因字体字面高度而
   产生额外缩放；修复目录点线在页码盒中重复绘制造成的间距异常，
   并使末尾点线紧贴页码；“（1）”列表序号后保留一个正常半角字间，
-  条目续行回到正文缩进线，不再产生第二层悬挂缩进；
-  收紧双导师姓名行距，并保持姓名与下划线的视觉留白。
+  条目续行回到正文版心左边界，不再产生列表内部悬挂缩进；
+  收紧双导师姓名行距，并保持姓名与下划线的视觉留白；新增
+  `word2latex` Codex Skill，用于 Word 论文迁移、编译和格式检查。
 - **v0.2.3（2026-07-28）**：更正学校英文名称；将快速上手调整为第一章，
   依据学校 Word 模板重写中英文摘要和正文写作提示；增加字体回退的
   PDF 可见提醒，统一页眉为宋体五号、单倍行距；补充 MiKTeX 手动编译
