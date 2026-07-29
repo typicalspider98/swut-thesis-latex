@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{swutthesis}[2026/07/29 v0.2.5 SWUT undergraduate thesis class]
+\ProvidesClass{swutthesis}[2026/07/29 v0.2.6 SWUT undergraduate thesis class]
 
 % ============================================================================
 % Internal implementation of the SWUT undergraduate thesis template.
@@ -919,26 +919,12 @@
   tabsize=4,
   xleftmargin=0.5em,
   xrightmargin=0.5em,
-  % Pull the listing contents slightly into the float's empty top strip.
-  % The float's lower edge moves by the same amount, so the already-correct
-  % gap below the code block remains unchanged.
-  aboveskip=-0.3\baselineskip,
-  belowskip=0pt,
-  % listings needs both a concrete float initialization and a persistent
-  % default. The order is significant: initialize the float commands first,
-  % then retain that placement for every subsequent listing.
-  floatplacement=htbp,
-  float=htbp,
-  float=true
+  % Listings stay in the text flow and may break naturally across pages.
+  % Keeping them non-floating avoids half-page code panels being centred on
+  % otherwise empty float pages.
+  aboveskip=0.5\baselineskip,
+  belowskip=0.5\baselineskip
 }
-% A floating listing otherwise receives both the listing skip and LaTeX's
-% comparatively large generic float separation.  Keep code visually attached
-% to its explanation while retaining the whole-block page-breaking behaviour.
-\AtBeginEnvironment{lstlisting}{%
-  \setlength{\intextsep}{0pt}%
-  \setlength{\textfloatsep}{0pt}%
-}
-\AfterEndEnvironment{lstlisting}{\FloatBarrier}
 
 % ----------------------------------------------------------------------------
 % 10. Bibliography and acknowledgements
