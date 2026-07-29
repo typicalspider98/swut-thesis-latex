@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{swutthesis}[2026/07/29 v0.2.6 SWUT undergraduate thesis class]
+\ProvidesClass{swutthesis}[2026/07/29 v0.2.7 SWUT undergraduate thesis class]
 
 % ============================================================================
 % Internal implementation of the SWUT undergraduate thesis template.
@@ -873,6 +873,13 @@
 % pages at the top of the text area so a deferred full-page figure does not
 % appear suspended in the middle of an otherwise empty page.
 \setlength{\@fptop}{0pt}
+% Permit a large top float to share its destination page with even a short
+% following paragraph.  These thresholds work with the recommended 0.62
+% text-height image cap while avoiding a needless float-only page.
+\renewcommand{\topfraction}{0.90}
+\renewcommand{\bottomfraction}{0.70}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.75}
 \setlength{\heavyrulewidth}{1.5pt}
 \setlength{\lightrulewidth}{0.75pt}
 \setlength{\cmidrulewidth}{0.75pt}
@@ -897,8 +904,9 @@
 % duplicate list-of-tables entry while retaining the original table number.
 \newcommand{\swutcontinuedcaption}[1]{\caption[]{#1（续表）}\\}
 
-% Keep the source order around large objects. If a figure or table does not
-% fit, it moves forward as a whole and later paragraphs cannot overtake it.
+% Keep source order around large objects.  The relaxed float thresholds above
+% allow a deferred figure or table to share the next page with the following
+% body text instead of forcing that text onto a third page.
 \AfterEndEnvironment{figure}{\FloatBarrier}
 \AfterEndEnvironment{table}{\FloatBarrier}
 
