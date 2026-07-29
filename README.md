@@ -4,7 +4,7 @@
 
 **面向全校本科生的中文毕业设计（论文）排版模板**
 
-[![Version](https://img.shields.io/badge/version-v0.2.3-1677ff?style=flat-square)](https://gitee.com/typicalspider/swut-thesis-latex/releases)
+[![Version](https://img.shields.io/badge/version-v0.2.5-1677ff?style=flat-square)](https://gitee.com/typicalspider/swut-thesis-latex/releases)
 [![Engine](https://img.shields.io/badge/engine-XeLaTeX-008080?style=flat-square)](#编译器要求)
 [![Online](https://img.shields.io/badge/online-CSTCloud-2e7d32?style=flat-square)](#快速开始推荐使用中国科技云)
 [![Code License](https://img.shields.io/badge/code%20license-MIT-f5a623?style=flat-square)](LICENSE)
@@ -289,6 +289,9 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
 
 ## 版本记录
 
+- **v0.2.5（2026-07-29）**：取消图表清单中由空章节累计产生的额外
+  章间空行，图清单与表清单之间统一保留一行间距；浮动图片单独占页
+  时从正文版心顶部开始排列，不再垂直居中。
 - **v0.2.4（2026-07-29）**：修复全局 `Scale=MatchLowercase` 导致中西文
   字体被自动缩小的问题，统一按 `Scale=1` 输出学校 Word 模板规定的
   物理字号；摘要标题、关键词、正文及页眉页脚不再因字体字面高度而

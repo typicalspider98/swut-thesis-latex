@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{swutthesis}[2026/07/29 v0.2.4 SWUT undergraduate thesis class]
+\ProvidesClass{swutthesis}[2026/07/29 v0.2.5 SWUT undergraduate thesis class]
 
 % ============================================================================
 % Internal implementation of the SWUT undergraduate thesis template.
@@ -841,9 +841,19 @@
   \clearpage
   \chapter*{图表清单}
   \thispagestyle{swut-front}
+  % ctexbook writes an \addvspace entry for every chapter, including chapters
+  % without a figure/table.  Ignoring those structural entries prevents empty
+  % chapters from accumulating into conspicuous blank strips in the combined
+  % list.  Keep one explicit baseline between the figure and table groups.
+  \begingroup
+  \let\addvspace\@gobble
   \@starttoc{lof}
+  \endgroup
   \vspace{\baselineskip}
+  \begingroup
+  \let\addvspace\@gobble
   \@starttoc{lot}
+  \endgroup
 }
 
 % ----------------------------------------------------------------------------
@@ -859,6 +869,10 @@
 \captionsetup[figure]{position=bottom,skip=6pt}
 \captionsetup[table]{position=top,skip=0pt}
 \captionsetup[longtable]{position=top,skip=0pt}
+% LaTeX vertically centres floats on a float-only page by default.  Start such
+% pages at the top of the text area so a deferred full-page figure does not
+% appear suspended in the middle of an otherwise empty page.
+\setlength{\@fptop}{0pt}
 \setlength{\heavyrulewidth}{1.5pt}
 \setlength{\lightrulewidth}{0.75pt}
 \setlength{\cmidrulewidth}{0.75pt}
