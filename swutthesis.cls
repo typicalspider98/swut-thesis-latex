@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{swutthesis}[2026/07/28 v0.2.3 SWUT undergraduate thesis class]
+\ProvidesClass{swutthesis}[2026/07/29 v0.2.4 SWUT undergraduate thesis class]
 
 % ============================================================================
 % Internal implementation of the SWUT undergraduate thesis template.
@@ -81,7 +81,12 @@
 % ----------------------------------------------------------------------------
 % 2. Font selection and fallbacks
 % ----------------------------------------------------------------------------
-\defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+% Word point sizes must remain physical point sizes in the generated PDF.
+% MatchLowercase silently shrinks Times New Roman and the selected CJK fonts,
+% so a nominal 15 bp abstract heading is rendered smaller than the 15 pt Word
+% reference. Keep every document font unscaled unless a family explicitly
+% requests a different scale.
+\defaultfontfeatures{Ligatures=TeX,Scale=1}
 
 % Western fonts: prefer the fonts named by the Word specification, then use
 % metrically compatible TeX Live fonts.  Cache the Times New Roman probe
@@ -108,8 +113,7 @@
 \IfFontExistsTF{Courier New}
   {\setmonofont{Courier New}}
   {\setmonofont{TeX Gyre Cursor}}
-% Word uses an unscaled 10.5 pt Times New Roman page number.  Keep this family
-% separate because the document's Western fonts use MatchLowercase scaling.
+% Keep a dedicated Times New Roman family for the 10.5 pt page number.
 \ifswut@hastimesnewroman
   \newfontfamily\swutpagefont[Scale=1]{Times New Roman}
 \else
