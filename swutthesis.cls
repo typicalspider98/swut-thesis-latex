@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{swutthesis}[2026/07/29 v0.2.7 SWUT undergraduate thesis class]
+\ProvidesClass{swutthesis}[2026/07/29 v0.2.8 SWUT undergraduate thesis class]
 
 % ============================================================================
 % Internal implementation of the SWUT undergraduate thesis template.
@@ -402,17 +402,20 @@
           \fi
         }};
 
-      % The five form rows share a strict 38.5 bp vertical grid.
-      \swut@coverrow{学生姓名：}{\swut@author}{469.00bp}{498.00bp}
-      \swut@coverrow{学\hspace{18bp}号：}{\swut@studentid}{507.50bp}{536.50bp}
-      \swut@coverrow{学\hspace{18bp}院：}{\swut@college}{546.00bp}{575.00bp}
-      \swut@coverrow{专\hspace{18bp}业：}{\swut@major}{584.50bp}{613.50bp}
+      % Keep the 38.5 bp underline grid, but place each text row in the lower
+      % half of its cell.  This gives the current value a closer visual
+      % relationship with its own underline than with the preceding row.
+      \swut@coverrow{学生姓名：}{\swut@author}{476.00bp}{498.00bp}
+      \swut@coverrow{学\hspace{18bp}号：}{\swut@studentid}{514.50bp}{536.50bp}
+      \swut@coverrow{学\hspace{18bp}院：}{\swut@college}{553.00bp}{575.00bp}
+      \swut@coverrow{专\hspace{18bp}业：}{\swut@major}{591.50bp}{613.50bp}
       \ifswut@twosupervisors
-        % Use a compact 16 bp baseline gap for two names while preserving the
-        % same visual clearance between the second name and the underline.
-        \swut@coverrow{指导教师：}{\swutformatsupervisors}{623.00bp}{660.00bp}
+        % Two names need extra room above the underline.  A restrained 2 bp
+        % downward offset keeps the row visually lower without touching the
+        % rule when the fallback CJK font has a deeper glyph box.
+        \swut@coverrow{指导教师：}{\swutformatsupervisors}{625.00bp}{660.00bp}
       \else
-        \swut@coverrow{指导教师：}{\swutformatsupervisors}{623.00bp}{652.00bp}
+        \swut@coverrow{指导教师：}{\swutformatsupervisors}{630.00bp}{652.00bp}
       \fi
 
       \node[anchor=north,inner sep=0pt]
