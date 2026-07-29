@@ -222,7 +222,7 @@
   label=（\arabic*）,
   labelindent=2em,
   leftmargin=*,
-  labelsep=0.5em,
+  labelsep=3bp,
   align=left
 }
 % The school specification ends at the third heading level
