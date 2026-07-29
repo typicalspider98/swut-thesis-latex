@@ -321,7 +321,7 @@
       {
         \bool_if:NTF \l_tmpa_bool
           {\bool_set_false:N \l_tmpa_bool}
-          {\\}
+          {\\[-2bp]}
         \swut_format_supervisor_name:n {##1}
       }
   }
@@ -407,8 +407,9 @@
       \swut@coverrow{学\hspace{18bp}院：}{\swut@college}{546.00bp}{575.00bp}
       \swut@coverrow{专\hspace{18bp}业：}{\swut@major}{584.50bp}{613.50bp}
       \ifswut@twosupervisors
-        % Allow a full 18 bp second line plus the visual gap above the rule.
-        \swut@coverrow{指导教师：}{\swutformatsupervisors}{623.00bp}{662.00bp}
+        % Use a compact 16 bp baseline gap for two names while preserving the
+        % same visual clearance between the second name and the underline.
+        \swut@coverrow{指导教师：}{\swutformatsupervisors}{623.00bp}{660.00bp}
       \else
         \swut@coverrow{指导教师：}{\swutformatsupervisors}{623.00bp}{652.00bp}
       \fi
@@ -791,27 +792,26 @@
 \renewcommand{\cftchapleader}{\cftdotfill{\cftdotsep}}
 \renewcommand{\cftsecleader}{\cftdotfill{\cftdotsep}}
 \renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
-% Continue the dotted leader through the normally empty part of tocloft's
-% fixed-width page-number box. This keeps the last dot close to one-, two-,
-% and three-digit page numbers while preserving a shared right edge.
-\newcommand{\swut@tocpagebox}[2]{%
-  \makebox[\@pnumwidth][r]{%
-    \cftdotfill{\cftdotsep}\nobreak#1#2}}
+% Use one uninterrupted leader followed by a fixed gap and the page number.
+% Drawing a second leader inside tocloft's fixed page-number box restarts the
+% dot pattern and creates a visibly irregular gap before one-digit pages.
+\newcommand{\swut@tocfillnum}[4]{%
+  {#1}\nobreak\hspace{.5em}\nobreak{#2#3}#4\par}
 \renewcommand{\cftchapfillnum}[1]{%
-  {\cftchapleader}\nobreak
-  \swut@tocpagebox{\cftchappagefont}{#1}\cftchapafterpnum\par}
+  \swut@tocfillnum{\cftchapleader}{\cftchappagefont}{#1}%
+    {\cftchapafterpnum}}
 \renewcommand{\cftsecfillnum}[1]{%
-  {\cftsecleader}\nobreak
-  \swut@tocpagebox{\cftsecpagefont}{#1}\cftsecafterpnum\par}
+  \swut@tocfillnum{\cftsecleader}{\cftsecpagefont}{#1}%
+    {\cftsecafterpnum}}
 \renewcommand{\cftsubsecfillnum}[1]{%
-  {\cftsubsecleader}\nobreak
-  \swut@tocpagebox{\cftsubsecpagefont}{#1}\cftsubsecafterpnum\par}
+  \swut@tocfillnum{\cftsubsecleader}{\cftsubsecpagefont}{#1}%
+    {\cftsubsecafterpnum}}
 \renewcommand{\cftfigfillnum}[1]{%
-  {\cftfigleader}\nobreak
-  \swut@tocpagebox{\cftfigpagefont}{#1}\cftfigafterpnum\par}
+  \swut@tocfillnum{\cftfigleader}{\cftfigpagefont}{#1}%
+    {\cftfigafterpnum}}
 \renewcommand{\cfttabfillnum}[1]{%
-  {\cfttableader}\nobreak
-  \swut@tocpagebox{\cfttabpagefont}{#1}\cfttabafterpnum\par}
+  \swut@tocfillnum{\cfttableader}{\cfttabpagefont}{#1}%
+    {\cfttabafterpnum}}
 \renewcommand{\cftfigpresnum}{图~}
 \renewcommand{\cfttabpresnum}{表~}
 % A single-digit chapter/item number such as "图 4.1" or "表 4.1" is followed
