@@ -796,7 +796,7 @@
 % Drawing a second leader inside tocloft's fixed page-number box restarts the
 % dot pattern and creates a visibly irregular gap before one-digit pages.
 \newcommand{\swut@tocfillnum}[4]{%
-  {#1}\nobreak\hspace{.5em}\nobreak{#2#3}#4\par}
+  {#1}\nobreak\hspace{-.1em}\nobreak{#2#3}#4\par}
 \renewcommand{\cftchapfillnum}[1]{%
   \swut@tocfillnum{\cftchapleader}{\cftchappagefont}{#1}%
     {\cftchapafterpnum}}
