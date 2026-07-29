@@ -221,8 +221,9 @@
 \setlist[enumerate,1]{
   label=（\arabic*）,
   labelindent=2em,
-  leftmargin=*,
-  labelsep=3bp,
+  leftmargin=2em,
+  itemindent=*,
+  labelsep=0.25em,
   align=left
 }
 % The school specification ends at the third heading level
