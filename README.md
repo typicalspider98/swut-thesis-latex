@@ -6,7 +6,7 @@
 
 [![Version](https://img.shields.io/badge/version-v0.2.10-1677ff?style=flat-square)](https://gitee.com/typicalspider/swut-thesis-latex/releases)
 [![Engine](https://img.shields.io/badge/engine-XeLaTeX-008080?style=flat-square)](#编译器要求)
-[![Online](https://img.shields.io/badge/online-CSTCloud-2e7d32?style=flat-square)](#快速开始推荐使用中国科技云)
+[![Online](https://img.shields.io/badge/online-TeXPage-1677ff?style=flat-square)](#快速开始推荐使用在线平台)
 [![Code License](https://img.shields.io/badge/code%20license-MIT-f5a623?style=flat-square)](LICENSE)
 
 [完整示例 PDF](main.pdf) ·
@@ -68,7 +68,7 @@ XeLaTeX 对 UTF-8 中文、系统字体及 OpenType/TrueType 字体的支持；
 XeLaTeX 和 Biber。系统已安装 `latexmk` 时，可在本地运行
 `latexmk main.tex`；未安装时使用下文列出的四步手动编译流程。
 
-## 快速开始（推荐使用中国科技云）
+## 快速开始（推荐使用在线平台）
 
 无需在电脑上安装 LaTeX 环境。请先从
 [Gitee 发行版页面](https://gitee.com/typicalspider/swut-thesis-latex/releases)
@@ -77,7 +77,22 @@ XeLaTeX 和 Biber。系统已安装 `latexmk` 时，可在本地运行
 下载最新版本的 ZIP 压缩包，然后将 ZIP 直接导入在线 LaTeX 平台。
 不要先解压后逐个上传文件，否则容易遗漏目录或资源文件。
 
-### 使用中国科技云论文协同编辑服务
+### 首选：TeXPage
+
+登录中文界面的 [TeXPage](https://www.texpage.com/) 后，新建项目并直接
+上传模板 ZIP。TeXPage 支持在线编辑、云端编译和即时 PDF 预览；本模板
+实测导入后能够自动识别 **XeLaTeX**，无需手动切换编译器即可完成编译。
+若个别项目未能自动识别，请在项目设置中将编译器改为 **XeLaTeX**，
+并确认主文档为 `main.tex`。
+
+TeXPage 并非完全免费。按其[当前套餐说明](https://www.texpage.com/pricing)，
+免费用户每个项目的单次编译时限为 **30 秒**。本模板完整示例实测能够
+在该时限内编译完成，通常也足够用于一般本科论文；如果论文包含大量
+高分辨率图片、复杂绘图或较多参考文献，仍可能需要精简资源、改用付费
+套餐或转到本地编译。平台套餐与额度可能调整，请以 TeXPage 最新页面
+为准。
+
+### 备选：中国科技云论文协同编辑服务
 
 登录[中国科技云论文协同编辑服务](https://latex.cstcloud.cn/)后，按照
 平台提示上传模板 ZIP。导入后打开项目设置，将 **Compiler** 设置为
@@ -85,15 +100,16 @@ XeLaTeX 和 Biber。系统已安装 `latexmk` 时，可在本地运行
 微信扫码登录，服务介绍见
 [中国科技云资源页面](https://www1.cstcloud.cn/resources/452)。
 
-在线平台的默认编译器可能是 pdfLaTeX。首次导入后必须先检查项目设置，
-确认已经选择 **XeLaTeX**，再开始编译。
+中国科技云等平台的默认编译器可能是 pdfLaTeX。首次导入后应检查项目
+设置，确认已经选择 **XeLaTeX**，再开始编译。
 
 ### 关于 Overleaf
 
 本模板原则上可以导入 Overleaf，并仍须选择 XeLaTeX；但完整示例需要
 加载中文字体、参考文献和图表等组件，可能超过 Overleaf 免费计划的
 编译时限。该限制属于平台资源配额，并不表示 LaTeX 源文件存在编译
-错误。需要稳定完成全文编译时，建议优先使用中国科技云或本地环境。
+错误。需要稳定完成全文编译时，建议优先使用 TeXPage、中国科技云或
+本地环境。
 Overleaf 各计划的编译时限以其
 [官方说明](https://docs.overleaf.com/getting-started/free-and-premium-plans/plan-limits)
 为准。
@@ -115,9 +131,17 @@ Overleaf 各计划的编译时限以其
 
 ## 使用界面
 
-下图展示在线平台与本地编辑器中的典型工作界面。中国科技云论文协同
-编辑服务基于开源版 Overleaf 定制研发，因此界面布局与操作方式基本
-一致。图片可点击放大。
+下图首先展示本模板在 TeXPage 中自动使用 XeLaTeX 编译后的界面。其后
+是中国科技云论文协同编辑服务与 TeXstudio 的典型工作界面。中国科技云
+基于开源版 Overleaf 定制研发，因此界面布局与操作方式基本一致。图片
+均可点击放大。
+
+<p align="center">
+  <a href="docs/images/readme/texpage-workspace.png">
+    <img src="docs/images/readme/texpage-workspace.png" width="95%" alt="TeXPage 中文在线编辑、XeLaTeX 编译与 PDF 预览界面">
+  </a>
+  <br><sub>TeXPage：导入发行版 ZIP 后，本模板实测可自动识别 XeLaTeX 并完成编译</sub>
+</p>
 
 <table>
   <tr>
