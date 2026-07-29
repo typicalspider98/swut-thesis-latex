@@ -4,7 +4,7 @@
 
 **面向全校本科生的中文毕业设计（论文）排版模板**
 
-[![Version](https://img.shields.io/badge/version-v0.2.9-1677ff?style=flat-square)](https://gitee.com/typicalspider/swut-thesis-latex/releases)
+[![Version](https://img.shields.io/badge/version-v0.2.10-1677ff?style=flat-square)](https://gitee.com/typicalspider/swut-thesis-latex/releases)
 [![Engine](https://img.shields.io/badge/engine-XeLaTeX-008080?style=flat-square)](#编译器要求)
 [![Online](https://img.shields.io/badge/online-CSTCloud-2e7d32?style=flat-square)](#快速开始推荐使用中国科技云)
 [![Code License](https://img.shields.io/badge/code%20license-MIT-f5a623?style=flat-square)](LICENSE)
@@ -289,6 +289,8 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
 
 ## 版本记录
 
+- **v0.2.10（2026-07-29）**：将正文与后续代码段之间的距离恢复为约一行
+  正文行距，避免代码块上方出现过宽留白。
 - **v0.2.9（2026-07-29）**：进一步收紧双指导教师姓名的行距，使第二位
   教师姓名上移并与封面下划线保持更清晰的间隙。
 - **v0.2.8（2026-07-29）**：优化封面信息区的垂直对齐，使学生姓名、

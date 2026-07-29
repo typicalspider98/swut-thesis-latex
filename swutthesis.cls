@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{swutthesis}[2026/07/29 v0.2.9 SWUT undergraduate thesis class]
+\ProvidesClass{swutthesis}[2026/07/29 v0.2.10 SWUT undergraduate thesis class]
 
 % ============================================================================
 % Internal implementation of the SWUT undergraduate thesis template.
@@ -933,7 +933,10 @@
   % Listings stay in the text flow and may break naturally across pages.
   % Keeping them non-floating avoids half-page code panels being centred on
   % otherwise empty float pages.
-  aboveskip=0.5\baselineskip,
+  % Listings contribute their own top line box.  Cancel its small surplus so
+  % the preceding body baseline and the first code baseline stay one normal
+  % body-line step apart.
+  aboveskip=-0.125\baselineskip,
   belowskip=0.5\baselineskip
 }
 
