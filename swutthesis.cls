@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{swutthesis}[2026/07/29 v0.2.10 SWUT undergraduate thesis class]
+\ProvidesClass{swutthesis}[2026/08/01 v0.2.11 SWUT undergraduate thesis class]
 
 % ============================================================================
 % Internal implementation of the SWUT undergraduate thesis template.
@@ -253,6 +253,10 @@
 \newcommand{\swut@authorizationyear}{}
 \newcommand{\swut@authorizationmonth}{}
 \newcommand{\swut@authorizationday}{}
+% Cover heading mode.  Leaving \thesistype unset preserves the official
+% combined wording.  The pinyin keys keep the source ASCII-only at the API
+% boundary and are easy to type on every supported platform.
+\newcommand{\swut@thesistype}{combined}
 
 \newcommand{\thesistitle}[1]{%
   \gdef\swut@title{#1}%
@@ -260,6 +264,17 @@
   \title{#1}}
 \newcommand{\coverthesistitle}[1]{\gdef\swut@covertitle{#1}}
 \newcommand{\thesissubtitle}[1]{\gdef\swut@subtitle{#1}}
+\newcommand{\thesistype}[1]{%
+  \edef\swut@requestedthesistype{\zap@space#1 \@empty}%
+  \ifdefstring{\swut@requestedthesistype}{sheji}
+    {\gdef\swut@thesistype{sheji}}
+    {\ifdefstring{\swut@requestedthesistype}{lunwen}
+      {\gdef\swut@thesistype{lunwen}}
+      {\ClassError{swutthesis}
+        {Invalid thesis type `#1'}
+        {Use \string\thesistype{sheji} for the design heading or\MessageBreak
+         \string\thesistype{lunwen} for the thesis heading.\MessageBreak
+         Omit the command to keep the combined heading.}}}}
 \newcommand{\studentname}[1]{\gdef\swut@author{#1}\author{#1}}
 \newcommand{\studentid}[1]{\gdef\swut@studentid{#1}}
 \newcommand{\college}[1]{\gdef\swut@college{#1}}
@@ -333,9 +348,19 @@
 % ----------------------------------------------------------------------------
 % In Word, 2 pt character spacing is present at both the paragraph and run
 % levels, so the fixed cover heading has an effective 4 pt gap between glyphs.
-\newcommand{\swut@coverheading}{%
+\newcommand{\swut@coverheading@combined}{%
   毕\kern4bp 业\kern4bp 设\kern4bp 计\kern4bp
   （\kern4bp 论\kern4bp 文\kern4bp ）}
+\newcommand{\swut@coverheading@design}{%
+  毕\kern4bp 业\kern4bp 设\kern4bp 计}
+\newcommand{\swut@coverheading@thesis}{%
+  毕\kern4bp 业\kern4bp 论\kern4bp 文}
+\newcommand{\swut@coverheading}{%
+  \ifdefstring{\swut@thesistype}{sheji}
+    {\swut@coverheading@design}
+    {\ifdefstring{\swut@thesistype}{lunwen}
+      {\swut@coverheading@thesis}
+      {\swut@coverheading@combined}}}
 
 % #1 label, #2 value, #3 text vertical coordinate, #4 underline coordinate.
 \newcommand{\swut@coverrow}[4]{%
