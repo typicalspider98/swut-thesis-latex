@@ -35,6 +35,10 @@ PDF”。学生只需使用本章介绍的少量命令组织标题、段落、�
 
 % 封面命令与 main.tex 保持一致，便于直接对照修改。
 \begin{lstlisting}[language={[LaTeX]TeX}]
+% 三选一：不写此命令时显示“毕业设计（论文）”
+\thesistype{sheji} % 毕业设计
+% \thesistype{lunwen} % 毕业论文
+
 \thesistitle{论文完整题目}
 \coverthesistitle{封面题目第一行\\封面题目第二行}
 \thesissubtitle{副标题}
@@ -50,6 +54,9 @@ PDF”。学生只需使用本章介绍的少量命令组织标题、段落、�
 \authorizationdate{2026}{6}{20}
 \end{lstlisting}
 
+\verb|\thesistype{sheji}| 使封面大标题显示“毕业设计”，
+\verb|\thesistype{lunwen}| 显示“毕业论文”。如果不写
+\verb|\thesistype| 命令，则保留默认的“毕业设计（论文）”。
 \verb|\thesistitle| 中填写不换行的完整题目，用于页眉和 PDF 信息。
 封面需要换成两行时，在 \verb|\coverthesistitle| 中使用一次
 \verb|\\|。没有副标题时，删除或注释 \verb|\thesissubtitle| 所在行。
