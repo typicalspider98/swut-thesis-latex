@@ -117,13 +117,22 @@ Overleaf 各计划的编译时限以其
 导入并编译成功后：
 
 1. 修改 `main.tex` 第 2 区的论文题目、作者、学院、专业等信息。
-   `\thesistitle` 保存用于页眉、书签等位置的完整题目；封面需要指定
-   换行时，使用 `\coverthesistitle{第一行\\第二行}`；可选的第三行
-   使用 `\thesissubtitle{副标题}`，没有副标题时删除或注释该命令。
+   `\thesistitle` 同时保存用于封面、页眉和书签的完整题目，封面会按
+   题目框宽度自动换行。不要复制 Word 标题中的手动换行，否则手动
+   换行可能与自动换行叠加。只有封面文字确实需要与完整题目不同时，
+   才使用 `\coverthesistitle{封面专用标题}`；可选副标题使用
+   `\thesissubtitle{副标题}`，没有副标题时删除或注释该命令。
    诚信承诺书和版权使用授权声明的日期分别使用
    `\commitmentdate{年}{月}{日}` 与
    `\authorizationdate{年}{月}{日}` 填写；需要打印后手写时将三个
-   参数留空即可。
+   参数留空即可。已有扫描签名时，使用
+   `\authorsignature{assets/signature.png}` 将同一签名放入两处；
+   两处签名不同时，分别使用
+   `\commitmentsignature{...}` 与
+   `\authorizationsignature{...}`。这三个命令都接受可选的
+   `\includegraphics` 参数，例如
+   `\authorsignature[trim=10 5 10 5,clip]{...}`。
+   真实签名属于敏感文件，请只保存在本地项目中，不要提交到公共仓库。
    示例 PDF 中已直接标注“主标题示例”和“副标题示例”，便于辨认。
 2. 在 `chapters/` 中撰写正文，在 `references.bib` 中维护参考文献。
    第一章“模板快速上手”说明了新建章节、正文分段、插图、引用和

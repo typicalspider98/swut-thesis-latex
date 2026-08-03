@@ -36,7 +36,7 @@ PDF”。学生只需使用本章介绍的少量命令组织标题、段落、�
 % 封面命令与 main.tex 保持一致，便于直接对照修改。
 \begin{lstlisting}[language={[LaTeX]TeX}]
 \thesistitle{论文完整题目}
-\coverthesistitle{封面题目第一行\\封面题目第二行}
+% \coverthesistitle{封面专用标题}
 \thesissubtitle{副标题}
 
 \studentname{姓名}
@@ -48,11 +48,14 @@ PDF”。学生只需使用本章介绍的少量命令组织标题、段落、�
 
 \commitmentdate{2026}{6}{20}
 \authorizationdate{2026}{6}{20}
+% \authorsignature{assets/signature.png}
 \end{lstlisting}
 
-\verb|\thesistitle| 中填写不换行的完整题目，用于页眉和 PDF 信息。
-封面需要换成两行时，在 \verb|\coverthesistitle| 中使用一次
-\verb|\\|。没有副标题时，删除或注释 \verb|\thesissubtitle| 所在行。
+\verb|\thesistitle| 中填写不换行的完整题目，用于封面、页眉和 PDF
+信息；封面会按题目框宽度自动换行，不要复制 Word 标题中的手动换行。
+只有封面显示文本确实需要与完整题目不同时，才使用
+\verb|\coverthesistitle|。没有副标题时，删除或注释
+\verb|\thesissubtitle| 所在行。
 一位指导教师直接填写姓名；有两位指导教师时，在
 \verb|\supervisor| 中使用英文逗号分隔，模板会自动将两人上下排列。
 两字姓名会自动空开一个汉字宽度，三字姓名不增加字间距。
@@ -60,6 +63,11 @@ PDF”。学生只需使用本章介绍的少量命令组织标题、段落、�
 \verb|\authorizationdate{年}{月}{日}| 分别填写诚信承诺书与版权使用
 授权声明的日期。如需在打印后手写日期，可将对应命令写为
 \verb|\commitmentdate{}{}{}| 或 \verb|\authorizationdate{}{}{}|。
+已有扫描签名时，先将图片放入本地项目，再用
+\verb|\authorsignature| 将同一张图片放入两个作者签名区。
+两处不同时，分别使用 \verb|\commitmentsignature| 和
+\verb|\authorizationsignature|，参数均为图片路径。签名图属于
+敏感文件，不要提交到公共仓库。
 
 中文摘要写在 \texttt{cnabstract} 环境中，关键词写入
 \verb|\cnkeywords{...}|；英文摘要写在 \texttt{enabstract} 环境中，

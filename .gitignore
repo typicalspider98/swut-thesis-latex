@@ -25,6 +25,13 @@ xelatex*.fls
 # 学校 Word 原始模板仅用于本地校对，不进入公开仓库或发行包
 SWUT-2026届毕业设计（论文）格式模板网站公布版.docx
 
+# 真实电子签名属于敏感文件，仅保存在本地项目中
+assets/signature*.png
+assets/signature*.jpg
+assets/signature*.jpeg
+assets/commitment-signature.*
+assets/authorization-signature.*
+
 # 字体文件的公开再分发授权尚未确认，不提交到公共仓库
 字体包可安装/
 fonts/*.ttf

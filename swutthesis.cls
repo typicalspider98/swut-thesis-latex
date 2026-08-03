@@ -253,6 +253,10 @@
 \newcommand{\swut@authorizationyear}{}
 \newcommand{\swut@authorizationmonth}{}
 \newcommand{\swut@authorizationday}{}
+\newcommand{\swut@commitmentsignaturefile}{}
+\newcommand{\swut@commitmentsignatureoptions}{}
+\newcommand{\swut@authorizationsignaturefile}{}
+\newcommand{\swut@authorizationsignatureoptions}{}
 
 \newcommand{\thesistitle}[1]{%
   \gdef\swut@title{#1}%
@@ -273,6 +277,22 @@
   \gdef\swut@authorizationyear{#1}%
   \gdef\swut@authorizationmonth{#2}%
   \gdef\swut@authorizationday{#3}}
+
+% Scanned signatures are optional. A single author signature normally fills
+% both declaration areas; the two specific commands can then override either
+% area when different images are required. Optional arguments are forwarded
+% to \includegraphics after the safe default size keys.
+\NewDocumentCommand{\authorsignature}{O{} m}{%
+  \gdef\swut@commitmentsignaturefile{#2}%
+  \gdef\swut@commitmentsignatureoptions{#1}%
+  \gdef\swut@authorizationsignaturefile{#2}%
+  \gdef\swut@authorizationsignatureoptions{#1}}
+\NewDocumentCommand{\commitmentsignature}{O{} m}{%
+  \gdef\swut@commitmentsignaturefile{#2}%
+  \gdef\swut@commitmentsignatureoptions{#1}}
+\NewDocumentCommand{\authorizationsignature}{O{} m}{%
+  \gdef\swut@authorizationsignaturefile{#2}%
+  \gdef\swut@authorizationsignatureoptions{#1}}
 
 % \supervisor accepts one name or a comma-separated pair. Chinese semicolons
 % and enumeration commas are normalized as separators as a convenience.
@@ -448,8 +468,9 @@
 }
 
 % #1 signature row coordinate; #2 underline/date reference coordinate;
-% #3 year; #4 month; #5 day. Empty date fields leave room for handwriting.
-\newcommand{\swut@declarationsignature}[5]{%
+% #3 year; #4 month; #5 day; #6 image file; #7 graphic options.
+% Empty date fields and an empty image file leave room for handwriting.
+\newcommand{\swut@declarationsignature}[7]{%
   \node[anchor=north west,inner sep=0pt]
     at ([xshift=317.5bp,yshift=-#1]current page.north west)
     {{\songti\rmfamily\fontsize{12bp}{18bp}\selectfont 作者签名：}};
@@ -458,6 +479,22 @@
   \draw[line width=0.5bp]
     ([xshift=382.5bp,yshift=-#2]current page.north west) --
     ([xshift=539bp,yshift=-#2]current page.north west);
+  \edef\swut@currentsignaturefile{#6}%
+  \ifx\swut@currentsignaturefile\@empty\else
+    \IfFileExists{#6}{%
+      \node[anchor=south,inner sep=0pt]
+        at ([xshift=460.75bp,yshift=-#2]current page.north west)
+        {\edef\swut@currentsignatureoptions{#7}%
+         \ifx\swut@currentsignatureoptions\@empty
+           \includegraphics[width=90bp,height=30bp,keepaspectratio]{#6}%
+         \else
+           \includegraphics[width=90bp,height=30bp,keepaspectratio,#7]{#6}%
+         \fi};
+    }{%
+      \ClassWarning{swutthesis}
+        {Signature image #6 not found; leaving the signature line blank}%
+    }%
+  \fi
   \node[anchor=north west,inner sep=0pt]
     at ([xshift=317.5bp,yshift=-\dimexpr#2+22bp\relax]current page.north west)
     {{\songti\rmfamily\fontsize{12bp}{18bp}\selectfont
@@ -510,6 +547,7 @@
         和集体，均已在文中以明确方式标明。\par}};
     \swut@declarationsignature{241.5bp}{275bp}
       {\swut@commitmentyear}{\swut@commitmentmonth}{\swut@commitmentday}
+      {\swut@commitmentsignaturefile}{\swut@commitmentsignatureoptions}
 
     \node[anchor=north,inner sep=0pt]
       at ([yshift=-360.5bp]current page.north)
@@ -526,7 +564,8 @@
         编学位论文。\par}};
     \swut@declarationsignature{531.5bp}{565bp}
       {\swut@authorizationyear}{\swut@authorizationmonth}
-      {\swut@authorizationday}
+      {\swut@authorizationday}{\swut@authorizationsignaturefile}
+      {\swut@authorizationsignatureoptions}
   \end{tikzpicture}
   \null
   \clearpage
