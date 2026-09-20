@@ -4,7 +4,7 @@
 
 **面向全校本科生的中文毕业设计（论文）排版模板**
 
-[![Version](https://img.shields.io/badge/version-v0.2.10-1677ff?style=flat-square)](https://gitee.com/typicalspider/swut-thesis-latex/releases)
+[![Version](https://img.shields.io/badge/version-v0.2.11-1677ff?style=flat-square)](https://gitee.com/typicalspider/swut-thesis-latex/releases)
 [![Engine](https://img.shields.io/badge/engine-XeLaTeX-008080?style=flat-square)](#编译器要求)
 [![Online](https://img.shields.io/badge/online-TeXPage-1677ff?style=flat-square)](#快速开始推荐使用在线平台)
 [![Code License](https://img.shields.io/badge/code%20license-MIT-f5a623?style=flat-square)](LICENSE)
@@ -330,6 +330,11 @@ Windows 自带的仿宋和楷体信息可参阅 Microsoft 官方的
 
 ## 版本记录
 
+- **v0.2.11（2026-09-20）**：修复封面信息区取值字距被拉开的问题。此前
+  学生姓名、学院、专业和指导教师等短取值放在固定宽度的居中栏中时，
+  会触发 xeCJK 的弹性字符间胶，出现“张 涛”式的字间空隙；现在该胶固定
+  为自然宽度，封面取值与 Word 版式一致逐字紧排，栏位、下划线和行距
+  均保持不变。
 - **v0.2.10（2026-07-29）**：将正文与后续代码段之间的距离恢复为约一行
   正文行距，避免代码块上方出现过宽留白；更新 README 中的最新 PDF
   预览和发行版下载入口，并补充 macOS 下 MacTeX + TeXstudio 的本地

@@ -1,5 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}[2020/10/01]
-\ProvidesClass{swutthesis}[2026/07/29 v0.2.10 SWUT undergraduate thesis class]
+\ProvidesClass{swutthesis}[2026/09/20 v0.2.11 SWUT undergraduate thesis class]
 
 % ============================================================================
 % Internal implementation of the SWUT undergraduate thesis template.
@@ -343,9 +343,15 @@
     at ([xshift=108bp,yshift=-#3]current page.north west)
     {{\heiti\sffamily\fontsize{15bp}{18bp}\selectfont
       \makebox[78bp][l]{#1}}};
+  % xeCJK's inter-character glue can stretch inside this fixed-width centred
+  % paragraph, which visibly spreads the characters of short values such as
+  % the student name or the college.  Pinning the glue to its natural width
+  % reproduces Word's even setting without touching the rest of the row.
   \node[anchor=north,inner sep=0pt,text width=318.5bp,align=center]
     at ([xshift=347.25bp,yshift=-#3]current page.north west)
-    {{\heiti\sffamily\fontsize{15bp}{18bp}\selectfont #2}};
+    {{\heiti\sffamily\fontsize{15bp}{18bp}\selectfont
+      \xeCJKsetup{CJKglue={\hskip 0pt}}%
+      #2}};
   % Word renders these form lines as 1.44 pt filled rules.
   \draw[line width=1.44bp]
     ([xshift=188bp,yshift=-#4]current page.north west) --
