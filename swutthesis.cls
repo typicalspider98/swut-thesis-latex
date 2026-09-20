@@ -352,9 +352,28 @@
     ([xshift=506.5bp,yshift=-#4]current page.north west);
 }
 
+\newsavebox{\swut@covertitlebox}
+\newcommand{\swut@covertitley}{-294.50bp}
 \renewcommand{\maketitle}{%
   \begin{titlepage}
     \thispagestyle{empty}
+    % Measure the rendered title, so an absent subtitle or a short title does
+    % not leave the only title line in the upper slot of a two-line layout.
+    \sbox{\swut@covertitlebox}{\parbox[t]{323bp}{%
+      \centering
+      \setstretch{1}%
+      \setlength{\parindent}{0pt}%
+      \setlength{\parskip}{0pt}%
+      \heiti\fontsize{22bp}{33bp}\selectfont
+      \swut@covertitle\par
+      \ifx\swut@subtitle\@empty\else
+        \swut@subtitle\par
+      \fi
+    }}%
+    \def\swut@covertitley{-294.50bp}%
+    \ifdim\dimexpr\ht\swut@covertitlebox+\dp\swut@covertitlebox\relax<40bp
+      \def\swut@covertitley{-332.00bp}%
+    \fi
     \begin{tikzpicture}[remember picture,overlay]
       % The group is exported unchanged from Word's two-picture Group 13.
       % Its rendered Word bounds are 397.95 pt × 83.45 pt at
@@ -385,22 +404,11 @@
         {{\heiti\sffamily\fontsize{22bp}{33bp}\selectfont
           题\hspace{20bp}目}};
 
-      % The first one or two lines come from \coverthesistitle; the optional
-      % third line comes from \thesissubtitle. Keeping them in one paragraph
-      % box guarantees identical alignment, font and baseline spacing.
+      % The measured box retains the original multi-line position. A single
+      % line moves down to align with the 题目 label without an empty upper row.
       \node[anchor=north,inner sep=0pt]
-        at ([xshift=345bp,yshift=-294.50bp]current page.north west)
-        {\parbox[t]{323bp}{%
-          \centering
-          \setstretch{1}%
-          \setlength{\parindent}{0pt}%
-          \setlength{\parskip}{0pt}%
-          \heiti\fontsize{22bp}{33bp}\selectfont
-          \swut@covertitle\par
-          \ifx\swut@subtitle\@empty\else
-            \swut@subtitle\par
-          \fi
-        }};
+        at ([xshift=345bp,yshift=\swut@covertitley]current page.north west)
+        {\usebox{\swut@covertitlebox}};
 
       % Keep the 38.5 bp underline grid, but place each text row in the lower
       % half of its cell.  This gives the current value a closer visual
